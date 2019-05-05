@@ -1,4 +1,0 @@
-#Sun May 05 14:18:41 ICT 2019
-base.0=C\:\\Users\\NGPD\\Desktop\\TTCNPM\\App\\ttcnpm-182-19\\MainCTXHActivity\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
-path.0=classes.dex
-renamed.0=classes.dex
