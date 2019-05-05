@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "919597171792-7cofgvidp38jhq1a2v1ese571796fpod.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.luong.mainctxhactivity",
+            "certificate_hash": "e9726bf20457c80fcf35c754f41d19fe403b06a8"
+          }
+        },
+        {
           "client_id": "919597171792-fi8bm1mefcp4edgr6e39u23neli25nnq.apps.googleusercontent.com",
           "client_type": 3
         }

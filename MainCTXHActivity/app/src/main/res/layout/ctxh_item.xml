@@ -1,7 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="15dp"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/background_ctxh_item"
+    android:elevation="5dp">
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:contentDescription="mua he xanh"
+        android:scaleType="fitXY"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <TextView
+        app:layout_constraintTop_toBottomOf="@+id/image"
+        app:layout_constrainedWidth="true"
+        android:id="@+id/title_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Chiến dịch mùa hè xanh do đoàn khoa Khoa học - Kĩ thuật máy tính tổ chức"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:padding="10dp"
+        android:textColor="@color/colorBlueDark"/>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/title_item"
+        android:id="@+id/row1"
+        app:layout_constrainedWidth="true"
+        >
+        <TextView
+            android:paddingBottom="7dp"
+            android:id="@+id/row1_col1"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="Mở đăng kí đến"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+        <TextView
+            app:layout_constraintLeft_toRightOf="@+id/row1_col1"
+            android:id="@+id/deadline_ctxh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="11h55pm, 12/12/2018"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlack"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/row2_col1"
+            android:paddingBottom="7dp"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="Thời gian đi"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/row1_col1"/>
+        <TextView
+            android:id="@+id/thoi_gian_thuchien"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="120dp"
+            android:text="9h am , 12/12/2018 đến"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlack"
+
+            app:layout_constraintTop_toBottomOf="@+id/row1_col1"
+            app:layout_constraintLeft_toRightOf="@id/row2_col1"/>
+        <TextView
+            android:id="@+id/thoi_gian_ketthuc_thuchien"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="7dp"
+            android:layout_marginLeft="120dp"
+            android:text="9h am , 12/12/2018"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlack"
+
+            app:layout_constraintTop_toBottomOf="@+id/thoi_gian_thuchien"
+            app:layout_constraintLeft_toRightOf="@id/row2_col1"/>
+        <TextView
+            android:id="@+id/row3_col1"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="Số ngày ctxh"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/thoi_gian_ketthuc_thuchien"/>
+        <TextView
+            android:id="@+id/day_of_ctxh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2 "
+            android:textStyle="bold"
+            android:textColor="@color/colorGreen"
+            app:layout_constraintLeft_toRightOf="@+id/row3_col1"
+            app:layout_constraintTop_toBottomOf="@+id/thoi_gian_ketthuc_thuchien"/>
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>

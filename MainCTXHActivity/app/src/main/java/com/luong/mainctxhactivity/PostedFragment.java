@@ -31,7 +31,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment {
+public class PostedFragment extends Fragment {
     View view;
     Context context;
     ArrayList<CtxhItem> ctxhList;
@@ -40,7 +40,7 @@ public class HomeFragment extends Fragment {
 
     FirebaseFirestore db;
 
-    public HomeFragment() {
+    public PostedFragment() {
     }
 
     public void setContext(Context context) {
@@ -165,37 +165,4 @@ public class HomeFragment extends Fragment {
     }
 
 
-//    public void getDatabase() {
-//        db = FirebaseFirestore.getInstance();
-//        ctxhList = new ArrayList<>();
-//        db.collection("ctxh")
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            Timestamp now = Timestamp.now();
-//                            for (QueryDocumentSnapshot document : task.getResult()) {
-//                                String title = document.getString("title");
-//                                Timestamp deadline = document.getTimestamp("deadline_register");
-//                                Log.i("deadline", deadline.toString());
-//                                String img = document.getString("image");
-//                                Double ctxh_day = document.getDouble("maximum_ctxh_day");
-//                                Timestamp time_start = document.getTimestamp("time_start");
-//                                Timestamp time_end = document.getTimestamp("time_end");
-//
-//                                Log.i("timestamp", Long.toString(now.getSeconds()) + " " + Long.toString(deadline.getSeconds()));
-//
-//                                if (deadline.getSeconds() > now.getSeconds()) {
-//                                    updateUI(new CtxhItem(document.getId(), img, title, deadline, time_start, time_end, ctxh_day), "get");
-//                                }
-//
-//                            }
-//
-//                        } else {
-//                            Toast.makeText(context, "Cant get data", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
-//    }
 }

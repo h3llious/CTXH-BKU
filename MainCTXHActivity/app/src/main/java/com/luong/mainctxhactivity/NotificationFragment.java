@@ -25,7 +25,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-public class DoneFragment extends Fragment {
+public class NotificationFragment extends Fragment {
     View view;
     Context context;
     ArrayList<CtxhItem> ctxhList;
@@ -36,7 +36,7 @@ public class DoneFragment extends Fragment {
 
     CtxhAdapter ctxhAdapter;
 
-    public DoneFragment() {
+    public NotificationFragment() {
         cldb = new CloundFireStoreHelper();
     }
 
@@ -79,10 +79,10 @@ public class DoneFragment extends Fragment {
 
     public void showId() {
         if (user != null) {
-            Toast.makeText(context, "User Id: " + user.getUid(), Toast.LENGTH_LONG).show();
+            //Toast.makeText(context, "User Id: " + user.getUid(), Toast.LENGTH_LONG).show();
         }
         else  {
-            Toast.makeText(context, "User Id: " + "None", Toast.LENGTH_LONG).show();
+            //Toast.makeText(context, "User Id: " + "None", Toast.LENGTH_LONG).show();
         }
 
         db.collection("registration")
@@ -92,7 +92,7 @@ public class DoneFragment extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Toast.makeText(context, "document ID: "  + document.getData(), Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(context, "document ID: "  + document.getData(), Toast.LENGTH_SHORT).show();
                                 Log.i("data registration", document.getData().toString());
                             }
                         } else {
