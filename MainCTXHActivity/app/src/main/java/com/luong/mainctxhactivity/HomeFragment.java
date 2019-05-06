@@ -75,6 +75,7 @@ public class HomeFragment extends Fragment {
 
         ctxhAdapter = new CtxhAdapter(ctxhList, context);
         recyclerView.setAdapter(ctxhAdapter);
+
     }
 
     public void updateUI(CtxhItem item, String type) {

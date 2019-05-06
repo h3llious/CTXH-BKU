@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 //        FirebaseUser currentUser = mAuth.getCurrentUser();
 //        updateUI(currentUser);
         Toast.makeText(this, "onStart", Toast.LENGTH_SHORT).show();
-        signIn("1611949@hcmut.edu.vn", "1611949");
+        signIn("1610468@hcmut.edu.vn", "1610468");
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navUserListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
