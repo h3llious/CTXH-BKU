@@ -26,4 +26,6 @@
     <string name="title">Title</string>
     <string name="description">Description</string>
     <string name="max_reg">Maximum registration allowed</string>
+    <string name="faculty">Faculty</string>
+    <string name="choose_photo">Choose photo</string>
 </resources>

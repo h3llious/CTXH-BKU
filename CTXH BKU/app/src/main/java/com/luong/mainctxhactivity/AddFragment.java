@@ -7,18 +7,26 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static android.support.constraint.Constraints.TAG;
@@ -35,7 +43,9 @@ public class AddFragment extends Fragment {
     EditText inputDays;
     EditText inputMaxReg;
     Button buttonPost;
+    Spinner spinnerFaculty;
 
+    HashMap<String, String> mapFaculty;
     Timestamp start;
     Timestamp due;
     Timestamp deadline;
@@ -44,6 +54,7 @@ public class AddFragment extends Fragment {
     String location;
     double days;
     int maxReg;
+    String faculty;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,6 +69,7 @@ public class AddFragment extends Fragment {
         inputDays = view.findViewById(R.id.days);
         inputMaxReg = view.findViewById(R.id.maxReg);
         buttonPost = view.findViewById(R.id.buttonPost);
+        spinnerFaculty = view.findViewById(R.id.spinnerFaculty);
 
         inputName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -167,22 +179,62 @@ public class AddFragment extends Fragment {
         buttonPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                parse();
+                if (name != null && location != null && faculty != null
+                        && start != null && due != null && deadline != null
+                        && days * maxReg > 0) {
+                    parse();
+                } else {
+                    Toast.makeText(view.getContext(), "Please correct all fields", Toast.LENGTH_LONG).show();
+                }
             }
         });
+
+        FirebaseFirestore.getInstance()
+                .collection("faculty")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            mapFaculty = new HashMap<>();
+                            for (QueryDocumentSnapshot item : task.getResult()) {
+                                mapFaculty.put(item.getId(), item.getString("name"));
+                            }
+                            setUpSpinnerFaculty();
+                        }
+                    }
+                });
 
         return view;
     }
 
+    private void setUpSpinnerFaculty() {
+        ArrayList<String> listFaculty = new ArrayList<>(mapFaculty.values());
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                view.getContext(), android.R.layout.simple_spinner_item, listFaculty);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerFaculty.setAdapter(adapter);
+        spinnerFaculty.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                faculty = mapFaculty.get(spinnerFaculty.getSelectedItem().toString());
+                Toast.makeText(view.getContext(), spinnerFaculty.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+    }
+
     private void parse() {
 
-        String id = "1";
         String imgURL = "https://firebasestorage.googleapis.com/v0/b/ctxh-manager.appspot.com/o/com_2k.jpg?alt=media&token=4493f4e9-5d1a-44ae-8f7e-27adc3854363";
 
         HashMap<String, Object> item = new HashMap<>();
         item.put("deadline_register", deadline);
         item.put("description", description);
-        item.put("id_faculty", id);
+        item.put("id_faculty", faculty);
         item.put("image", imgURL);
         item.put("location", location);
         item.put("maximum_ctxh_day", days);
