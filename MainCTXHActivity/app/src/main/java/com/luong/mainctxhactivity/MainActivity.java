@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 //        FirebaseUser currentUser = mAuth.getCurrentUser();
 //        updateUI(currentUser);
         Toast.makeText(this, "onStart", Toast.LENGTH_SHORT).show();
-        signIn("1610468@hcmut.edu.vn", "1610468");
+        signIn("1613333@hcmut.edu.vn", "1613333");
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navUserListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void signIn(String email, String password) {
         FirebaseUser user = mAuth.getCurrentUser();
-        if (user == null) {
+        if (user != null) {
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
