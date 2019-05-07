@@ -1,5 +1,8 @@
 package com.luong.mainctxhactivity;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -14,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -23,15 +27,24 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 import static android.support.constraint.Constraints.TAG;
 
 public class AddFragment extends Fragment {
+
+    final static int REQUEST_CODE_CHOOSE_IMAGE = 1;
+    private static final String DEFAULT_IMAGE_URL =
+            "https://firebasestorage.googleapis.com/v0/b/ctxh-manager.appspot.com/o/default.jpg?alt=media&token=9b4905e3-1595-4549-991d-0a66759221a9";
 
     View view;
     EditText inputName;
@@ -42,19 +55,22 @@ public class AddFragment extends Fragment {
     EditText inputDeadline;
     EditText inputDays;
     EditText inputMaxReg;
+    Button buttonChoose;
     Button buttonPost;
     Spinner spinnerFaculty;
 
-    HashMap<String, String> mapFaculty;
     Timestamp start;
     Timestamp due;
     Timestamp deadline;
     String name;
     String description;
     String location;
+    String faculty;
+    String imgFireURI;
+    Uri imgLocalURI;
+    HashMap<String, String> mapFaculty;
     double days;
     int maxReg;
-    String faculty;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -68,6 +84,7 @@ public class AddFragment extends Fragment {
         inputDeadline = view.findViewById(R.id.deadline);
         inputDays = view.findViewById(R.id.days);
         inputMaxReg = view.findViewById(R.id.maxReg);
+        buttonChoose = view.findViewById(R.id.buttonChoose);
         buttonPost = view.findViewById(R.id.buttonPost);
         spinnerFaculty = view.findViewById(R.id.spinnerFaculty);
 
@@ -176,6 +193,16 @@ public class AddFragment extends Fragment {
             }
         });
 
+        buttonChoose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_PICK);
+                startActivityForResult(intent, AddFragment.REQUEST_CODE_CHOOSE_IMAGE);
+            }
+        });
+
         buttonPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -197,8 +224,8 @@ public class AddFragment extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             mapFaculty = new HashMap<>();
-                            for (QueryDocumentSnapshot item : task.getResult()) {
-                                mapFaculty.put(item.getId(), item.getString("name"));
+                            for (QueryDocumentSnapshot item : Objects.requireNonNull(task.getResult())) {
+                                mapFaculty.put(item.getString("name"), item.getId());
                             }
                             setUpSpinnerFaculty();
                         }
@@ -208,9 +235,16 @@ public class AddFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, final Intent data) {
+        if (requestCode == AddFragment.REQUEST_CODE_CHOOSE_IMAGE && resultCode == Activity.RESULT_OK) {
+            imgLocalURI = data.getData();
+        }
+    }
+
     private void setUpSpinnerFaculty() {
-        ArrayList<String> listFaculty = new ArrayList<>(mapFaculty.values());
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+        ArrayList<String> listFaculty = new ArrayList<>(mapFaculty.keySet());
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 view.getContext(), android.R.layout.simple_spinner_item, listFaculty);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerFaculty.setAdapter(adapter);
@@ -218,24 +252,70 @@ public class AddFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 faculty = mapFaculty.get(spinnerFaculty.getSelectedItem().toString());
-                Toast.makeText(view.getContext(), spinnerFaculty.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+                faculty = mapFaculty.get(spinnerFaculty.getItemAtPosition(0).toString());
             }
         });
     }
 
-    private void parse() {
+    private boolean uploadImage() {
+        final boolean[] success = {false};
+        if (imgLocalURI != null) {
 
-        String imgURL = "https://firebasestorage.googleapis.com/v0/b/ctxh-manager.appspot.com/o/com_2k.jpg?alt=media&token=4493f4e9-5d1a-44ae-8f7e-27adc3854363";
+            final StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+            UploadTask uploadTask = storageReference.putFile(imgLocalURI);
+
+            uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw Objects.requireNonNull(task.getException());
+                    }
+                    return storageReference.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
+                        imgFireURI = Objects.requireNonNull(task.getResult()).toString();
+                    }
+                }
+            });
+
+            uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(view.getContext(), "Uploading image...", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    success[0] = true;
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(view.getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
+        return success[0];
+    }
+
+    private void parse() {
+        if (!uploadImage()) {
+            imgFireURI = AddFragment.DEFAULT_IMAGE_URL;
+        }
 
         HashMap<String, Object> item = new HashMap<>();
         item.put("deadline_register", deadline);
         item.put("description", description);
         item.put("id_faculty", faculty);
-        item.put("image", imgURL);
+        item.put("image", imgFireURI);
         item.put("location", location);
         item.put("maximum_ctxh_day", days);
         item.put("maximum_register", maxReg);
