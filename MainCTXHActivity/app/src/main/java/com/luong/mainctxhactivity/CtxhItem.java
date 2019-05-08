@@ -25,7 +25,7 @@ public class CtxhItem {
     Timestamp time_end;
     Double day_of_ctxh;
 
-    SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a, dd-MM-yyyy");
+    SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm, dd-MM-yyyy");
 
     public CtxhItem(String id, String imgURL, String title, Timestamp deadline_register, Timestamp time_start, Timestamp time_end, Double day_of_ctxh) {
         this.id = id;

@@ -8,15 +8,14 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="fitXY"
+        android:layout_height="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <TextView
-        android:id="@+id/title_detail"
+        android:id="@+id/title_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
@@ -34,7 +33,7 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         app:layout_constrainedWidth="true"
-        app:layout_constraintTop_toBottomOf="@+id/title_detail">
+        app:layout_constraintTop_toBottomOf="@+id/title_item">
 
         <TextView
             android:id="@+id/row1_col1"
@@ -46,7 +45,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/deadline_detail"
+            android:id="@+id/deadline_ctxh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="11h55pm, 12/12/2018"
@@ -65,7 +64,7 @@
             app:layout_constraintTop_toBottomOf="@+id/row1_col1" />
 
         <TextView
-            android:id="@+id/time_start_detail"
+            android:id="@+id/thoi_gian_thuchien"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="9h am , 12/12/2018"
@@ -82,11 +81,11 @@
             android:text="đến"
             android:textColor="@color/colorBlack"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/time_end_detail"
-            app:layout_constraintLeft_toRightOf="@id/time_start_detail" />
+            app:layout_constraintBottom_toTopOf="@id/thoi_gian_ketthuc_thuchien"
+            app:layout_constraintLeft_toRightOf="@id/thoi_gian_thuchien" />
 
         <TextView
-            android:id="@+id/time_end_detail"
+            android:id="@+id/thoi_gian_ketthuc_thuchien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="120dp"
@@ -96,7 +95,7 @@
             android:textStyle="bold"
 
             app:layout_constraintLeft_toRightOf="@id/row2_col1"
-            app:layout_constraintTop_toBottomOf="@+id/time_start_detail" />
+            app:layout_constraintTop_toBottomOf="@+id/thoi_gian_thuchien" />
 
         <TextView
             android:id="@+id/row3_col1"
@@ -105,10 +104,10 @@
             android:paddingBottom="7dp"
             android:text="Số ngày ctxh"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/time_end_detail" />
+            app:layout_constraintTop_toBottomOf="@+id/thoi_gian_ketthuc_thuchien" />
 
         <TextView
-            android:id="@+id/social_day"
+            android:id="@+id/day_of_ctxh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="7dp"
@@ -116,7 +115,7 @@
             android:textColor="@color/colorGreen"
             android:textStyle="bold"
             app:layout_constraintLeft_toRightOf="@+id/row3_col1"
-            app:layout_constraintTop_toBottomOf="@+id/time_end_detail" />
+            app:layout_constraintTop_toBottomOf="@+id/thoi_gian_ketthuc_thuchien" />
 
         <TextView
             android:id="@+id/facultyname"
@@ -136,7 +135,7 @@
             android:textColor="@color/colorBlack"
             android:textStyle="bold"
             app:layout_constraintLeft_toRightOf="@+id/facultyname"
-            app:layout_constraintTop_toBottomOf="@+id/social_day" />
+            app:layout_constraintTop_toBottomOf="@+id/day_of_ctxh" />
 
         <TextView
             android:id="@+id/location"
@@ -151,16 +150,11 @@
             android:id="@+id/location2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:paddingBottom="7dp"
             android:text="Dĩ An Bình Dương"
             android:textColor="@color/colorBlack"
             android:textStyle="bold"
-            app:layout_constrainedWidth="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toRightOf="@+id/location"
-            app:layout_constraintStart_toEndOf="@+id/location"
             app:layout_constraintTop_toBottomOf="@+id/faculty" />
 
         <TextView
@@ -170,12 +164,12 @@
             android:paddingBottom="7dp"
             android:text="Mô tả"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/location2" />
+            app:layout_constraintTop_toBottomOf="@+id/location" />
 
         <ScrollView
             android:id="@+id/scrollDisc"
             android:layout_width="wrap_content"
-            android:layout_height="80dp"
+            android:layout_height="50dp"
             app:layout_constraintHeight_min="wrap"
             android:layout_marginEnd="8dp"
             android:paddingBottom="7dp"
@@ -184,7 +178,7 @@
             app:layout_constraintLeft_toRightOf="@+id/description"
             app:layout_constraintRight_toLeftOf="parent"
             app:layout_constraintStart_toEndOf="@+id/description"
-            app:layout_constraintTop_toBottomOf="@+id/location2">
+            app:layout_constraintTop_toBottomOf="@+id/location">
 
             <TextView
                 android:id="@+id/description2"
@@ -201,7 +195,6 @@
                 app:layout_constraintRight_toLeftOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/description"
                 app:layout_constraintTop_toBottomOf="@+id/location" />
-
         </ScrollView>
     </android.support.constraint.ConstraintLayout>
     <TextView
@@ -261,7 +254,7 @@
 
     <TextView
         android:layout_width="200dp"
-        android:layout_height="100dp"
+        android:layout_height="200dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
