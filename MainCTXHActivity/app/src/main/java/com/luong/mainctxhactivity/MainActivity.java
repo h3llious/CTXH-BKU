@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void signIn(String email, String password) {
         FirebaseUser user = mAuth.getCurrentUser();
-        if (user != null) {
+        if (user == null) {
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
