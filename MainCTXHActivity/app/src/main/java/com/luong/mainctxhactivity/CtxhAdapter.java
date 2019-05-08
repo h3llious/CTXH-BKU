@@ -1,13 +1,21 @@
 package com.luong.mainctxhactivity;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.luong.mainctxhactivity.CtxhItem;
 import com.luong.mainctxhactivity.R;
 import com.squareup.picasso.Picasso;
@@ -33,8 +41,10 @@ public class CtxhAdapter extends RecyclerView.Adapter<CtxhAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder( ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(ViewHolder viewHolder, int i) {
         CtxhItem item = ctxhList.get(i);
+
+        final String docId = item.getId();
         // item.setImg(viewHolder.img);
         Picasso.get().load(item.getImgURL()).into(viewHolder.img);
 
@@ -43,6 +53,21 @@ public class CtxhAdapter extends RecyclerView.Adapter<CtxhAdapter.ViewHolder> {
         viewHolder.start.setText(item.getTime_start());
         viewHolder.end.setText(item.getTime_end());
         viewHolder.ctxh_day.setText(Double.toString(item.getDay_of_ctxh()));
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("docId", docId);
+                Fragment detailFragment = new DetailFragment();
+                detailFragment.setArguments(bundle);
+
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, detailFragment).commit();
+
+                Log.d("TestClick", "Clickable");
+            }
+        });
     }
 
     @Override
@@ -59,7 +84,7 @@ public class CtxhAdapter extends RecyclerView.Adapter<CtxhAdapter.ViewHolder> {
         TextView ctxh_day;
 
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(final View itemView) {
             super(itemView);
 
             img = itemView.findViewById(R.id.image);
@@ -69,12 +94,12 @@ public class CtxhAdapter extends RecyclerView.Adapter<CtxhAdapter.ViewHolder> {
             end = itemView.findViewById(R.id.thoi_gian_ketthuc_thuchien);
             ctxh_day = itemView.findViewById(R.id.day_of_ctxh);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Toast.makeText(itemView.getContext(), "TEST", Toast.LENGTH_SHORT).show();
+//                }
+//            });
         }
     }
 }
