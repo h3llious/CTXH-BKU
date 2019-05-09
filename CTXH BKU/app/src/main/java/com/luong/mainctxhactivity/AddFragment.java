@@ -1,6 +1,8 @@
 package com.luong.mainctxhactivity;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -15,12 +17,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -35,15 +38,15 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.TimeZone;
 
 import static android.support.constraint.Constraints.TAG;
 
@@ -55,13 +58,19 @@ public class AddFragment extends Fragment {
     EditText inputName;
     EditText inputDescription;
     EditText inputLocation;
-    EditText inputStartTime;
-    EditText inputDue;
-    EditText inputDeadline;
     EditText inputDays;
     EditText inputMaxReg;
-    Button buttonPost;
+
+    Calendar current;
+    Button buttonStartTime;
+    Button buttonEndTime;
+    Button buttonDeadlineTime;
+    Button buttonStartDate;
+    Button buttonEndDate;
+    Button buttonDeadlineDate;
+
     Button buttonChoose;
+    Button buttonPost;
     TextView imgName;
     Spinner spinnerFaculty;
 
@@ -85,14 +94,23 @@ public class AddFragment extends Fragment {
         inputName = view.findViewById(R.id.editTextName);
         inputDescription = view.findViewById(R.id.editTextDescription);
         inputLocation = view.findViewById(R.id.editTextLocation);
-        inputStartTime = view.findViewById(R.id.startTime);
-        inputDue = view.findViewById(R.id.due);
-        inputDeadline = view.findViewById(R.id.deadline);
         inputDays = view.findViewById(R.id.days);
         inputMaxReg = view.findViewById(R.id.maxReg);
-        imgName = view.findViewById(R.id.imgName);
+
+        buttonStartDate = view.findViewById(R.id.btnStartDate);
+        buttonStartTime = view.findViewById(R.id.btnStartTime);
+        buttonEndDate = view.findViewById(R.id.btnEndDate);
+        buttonEndTime = view.findViewById(R.id.btnEndTime);
+        buttonDeadlineDate = view.findViewById(R.id.btnDeadlineDate);
+        buttonDeadlineTime = view.findViewById(R.id.btnDeadlineTime);
+
+        current = Calendar.getInstance(TimeZone.getDefault());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+
         buttonChoose = view.findViewById(R.id.buttonChoose);
         buttonPost = view.findViewById(R.id.buttonPost);
+        imgName = view.findViewById(R.id.imgName);
         spinnerFaculty = view.findViewById(R.id.spinnerFaculty);
 
         inputName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -122,33 +140,6 @@ public class AddFragment extends Fragment {
             }
         });
 
-        inputStartTime.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    updateStart();
-                }
-            }
-        });
-
-        inputDue.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    updateDue();
-                }
-            }
-        });
-
-        inputDeadline.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    updateDeadline();
-                }
-            }
-        });
-
         inputDays.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -167,6 +158,53 @@ public class AddFragment extends Fragment {
             }
         });
 
+
+        buttonStartDate.setText(dateFormat.format(current.getTimeInMillis()));
+        buttonStartDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datePicker(buttonStartDate);
+            }
+        });
+        buttonStartTime.setText(timeFormat.format(current.getTimeInMillis()));
+        buttonStartTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timePicker(buttonStartTime);
+            }
+        });
+
+        buttonEndDate.setText(dateFormat.format(current.getTimeInMillis()));
+        buttonEndDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datePicker(buttonEndDate);
+            }
+        });
+        buttonEndTime.setText(timeFormat.format(current.getTimeInMillis()));
+        buttonEndTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timePicker(buttonEndTime);
+            }
+        });
+
+        buttonDeadlineDate.setText(dateFormat.format(current.getTimeInMillis()));
+        buttonDeadlineDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datePicker(buttonDeadlineDate);
+            }
+        });
+        buttonDeadlineTime.setText(timeFormat.format(current.getTimeInMillis()));
+        buttonDeadlineTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timePicker(buttonDeadlineTime);
+            }
+        });
+
+
         String defaultImageName = "No image selected";
         imgName.setText(defaultImageName);
         buttonChoose.setOnClickListener(new View.OnClickListener() {
@@ -182,17 +220,9 @@ public class AddFragment extends Fragment {
         buttonPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateName();
-                updateDescription();
-                updateLocation();
-                updateStart();
-                updateDue();
-                updateDeadline();
-                updateDays();
-                updateMaxReg();
-                if (name != null && location != null && faculty != null
-                        && start != null && due != null && deadline != null
-                        && days * maxReg > 0) {
+                if (updateName() && updateDescription() && updateLocation() &&
+                        updateStart() && updateEnd() && updateDeadline() &&
+                        updateDays() && updateMaxReg()) {
                     uploadImage();
                 } else {
                     Toast.makeText(view.getContext(), "Please correct all fields", Toast.LENGTH_LONG).show();
@@ -230,75 +260,107 @@ public class AddFragment extends Fragment {
         return view;
     }
 
+    private void datePicker(final Button button) {
+        new DatePickerDialog(view.getContext(), new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                button.setText(String.format(Locale.getDefault(), "%02d/%02d/%04d", dayOfMonth, month + 1, year));
+            }
+        }, current.get(Calendar.YEAR), current.get(Calendar.MONTH), current.get(Calendar.DAY_OF_MONTH)).show();
+    }
 
-    private void updateName() {
+    private void timePicker(final Button button) {
+        new TimePickerDialog(view.getContext(), new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                button.setText(String.format(Locale.getDefault(), "%02d:%02d", hourOfDay, minute));
+            }
+        }, current.get(Calendar.HOUR_OF_DAY), current.get(Calendar.MINUTE), true).show();
+    }
+
+
+    private boolean updateName() {
         if (inputName.length() == 0) {
             inputName.setError("Empty title");
             name = null;
         } else {
             name = inputName.getText().toString();
         }
+        return name != null;
     }
 
-    private void updateDescription() {
+    private boolean updateDescription() {
         description = inputDescription.getText().toString();
+        return true;
     }
 
-    private void updateLocation() {
+    private boolean updateLocation() {
         if (inputLocation.length() == 0) {
             inputLocation.setError("Empty location");
             location = null;
         } else {
             location = inputLocation.getText().toString();
         }
+        return location != null;
     }
 
-    private void updateStart() {
-        start = convertTime(inputStartTime.getText().toString());
+    private boolean updateStart() {
+        start = convertTime(buttonStartDate.getText().toString() + " " + buttonStartTime.getText().toString());
         if (start == null) {
-            inputStartTime.setError("Time input format must be \"DD/MM/YYYY HH:MM\"");
+            Toast.makeText(view.getContext(), "Error while parse the selected time", Toast.LENGTH_SHORT).show();
         }
+        return true;
     }
 
-    private void updateDue() {
-        due = convertTime(inputDue.getText().toString());
+    private boolean updateEnd() {
+        due = convertTime(buttonEndDate.getText().toString() + " " + buttonEndTime.getText().toString());
         if (due == null) {
-            inputDue.setError("Time input format must be \"DD/MM/YYYY HH:MM\"");
+            Toast.makeText(view.getContext(), "Error while parse the selected time", Toast.LENGTH_SHORT).show();
         } else if (due.getSeconds() < start.getSeconds()) {
-            inputDue.setError("Wrong time: End before start!");
+            Toast.makeText(view.getContext(), "Wrong time: End before start!", Toast.LENGTH_SHORT).show();
+            return false;
         }
+        return true;
     }
 
-    private void updateDeadline() {
-        deadline = convertTime(inputDeadline.getText().toString());
+    private boolean updateDeadline() {
+        deadline = convertTime(buttonDeadlineDate.getText().toString() + " " + buttonDeadlineTime.getText().toString());
         if (deadline == null) {
-            inputDeadline.setError("Time input format must be \"DD/MM/YYYY HH:MM\"");
+            Toast.makeText(view.getContext(), "Error while parse the selected time", Toast.LENGTH_SHORT).show();
         } else if (deadline.getSeconds() > due.getSeconds()) {
-            inputDeadline.setError("Wrong time: Register after end!");
+            Toast.makeText(view.getContext(), "Wrong time: Register after end!", Toast.LENGTH_SHORT).show();
+            return false;
         }
+        return true;
     }
 
-    private void updateDays() {
+    private boolean updateDays() {
         if (inputDays.length() == 0) {
             inputDays.setError("Empty");
             days = 0;
+            return false;
         } else {
             days = Double.parseDouble(inputDays.getText().toString());
             if (days <= 0) {
                 inputDays.setError("Must be positive");
+                return false;
             }
         }
+        return true;
     }
 
-    private void updateMaxReg() {
+    private boolean updateMaxReg() {
         if (inputMaxReg.length() == 0) {
             inputMaxReg.setError("Empty");
             maxReg = 0;
+            return false;
         } else {
             maxReg = Integer.parseInt(inputMaxReg.getText().toString());
             if (maxReg <= 0) {
                 inputMaxReg.setError("Must be positive");
+                return false;
             }
+            return true;
         }
     }
 

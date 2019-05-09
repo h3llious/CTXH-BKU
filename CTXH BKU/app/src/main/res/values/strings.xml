@@ -19,7 +19,8 @@
     <string name="deadline">Registration deadline</string>
     <string name="days_recorded">Days to be recorded</string>
     <string name="due">Due</string>
-    <string name="timeFormat">DD/MM/YYYY HH:MM</string>
+    <string name="dateFormat">DD/MM/YYYY</string>
+    <string name="timeFormat">HH:MM</string>
     <string name="location">Location</string>
     <string name="image">Image</string>
     <string name="post">Post</string>
