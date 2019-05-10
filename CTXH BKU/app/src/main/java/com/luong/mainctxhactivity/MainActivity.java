@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-        signIn("1613333@hcmut.edu.vn", "1613333");
+        signIn("1611949@hcmut.edu.vn", "1611949");
 
     }
 
@@ -66,21 +66,21 @@ public class MainActivity extends AppCompatActivity {
             switch (menuItem.getItemId()){
                 case R.id.home:
                     selectedFragment = new HomeFragment();
-                    ((HomeFragment) selectedFragment).setContext(getBaseContext());
+                    ((HomeFragment) selectedFragment).setContext(MainActivity.this);
                     break;
                 case R.id.registered:
                     selectedFragment = new RegisteredFragment();
-                    ((RegisteredFragment) selectedFragment).setContext(getBaseContext());
+                    ((RegisteredFragment) selectedFragment).setContext(MainActivity.this);
                     break;
                 case R.id.notify:
                     selectedFragment = new NotificationFragment();
-                    ((NotificationFragment) selectedFragment).setContext(getBaseContext());
+                    ((NotificationFragment) selectedFragment).setContext(MainActivity.this);
                     ((NotificationFragment) selectedFragment).setUser(user);
                     ((NotificationFragment) selectedFragment).showId();
                     break;
                 case R.id.account:
                     selectedFragment = new AccountFragment();
-                    ((AccountFragment) selectedFragment).setContext(getBaseContext());
+                    ((AccountFragment) selectedFragment).setContext(MainActivity.this);
                     break;
             }
 
@@ -97,20 +97,20 @@ public class MainActivity extends AppCompatActivity {
             switch (menuItem.getItemId()){
                 case R.id.posted:
                     selectedFragment = new PostedFragment();
-                    ((PostedFragment) selectedFragment).setContext(getBaseContext());
+                    ((PostedFragment) selectedFragment).setContext(MainActivity.this);
                     break;
                 case R.id.add_ctxh:
                     selectedFragment = new AddFragment();
                     break;
                 case R.id.notify:
                     selectedFragment = new NotificationFragment();
-                    ((NotificationFragment) selectedFragment).setContext(getBaseContext());
+                    ((NotificationFragment) selectedFragment).setContext(MainActivity.this);
                     ((NotificationFragment) selectedFragment).setUser(user);
                     ((NotificationFragment) selectedFragment).showId();
                     break;
                 case R.id.account:
                     selectedFragment = new AccountFragment();
-                    ((AccountFragment) selectedFragment).setContext(getBaseContext());
+                    ((AccountFragment) selectedFragment).setContext(MainActivity.this);
                     break;
             }
 

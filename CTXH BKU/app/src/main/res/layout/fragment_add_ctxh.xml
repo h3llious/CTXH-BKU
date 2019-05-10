@@ -1,6 +1,312 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="#d5d5d5">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:orientation="vertical">
+
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="16dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:ems="10"
+                android:gravity="start"
+                android:text="title" />
+
+            <EditText
+                android:id="@+id/editTextName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="activity_name"
+                android:inputType="textMultiLine"
+                tools:ignore="Autofill" />
+
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="24dp" />
+
+            <EditText
+                android:id="@+id/editTextDescription"
+                android:layout_width="match_parent"
+                android:layout_height="128dp"
+                android:gravity="top"
+                android:hint="activity_description"
+                android:inputType="textMultiLine"
+                tools:ignore="Autofill" />
+
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="24dp" />
+
+            <EditText
+                android:id="@+id/editTextLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="location"
+                android:inputType="textMultiLine"
+                tools:ignore="Autofill" />
+
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="24dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:ems="10"
+                android:gravity="start"
+                android:text="faculty" />
+
+            <Spinner
+                android:id="@+id/spinnerFaculty"
+                android:layout_width="match_parent"
+                android:layout_height="48dp" />
+
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="24dp" />
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="96dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="choose_photo"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/imgName"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/buttonChoose"
+                    app:layout_constraintStart_toEndOf="@+id/textView"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/buttonChoose"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="choose"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="24dp" />
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+                <Button
+                    android:id="@+id/btnStartDate"
+                    style="?android:borderlessButtonStyle"
+                    android:layout_width="128dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="0dp"
+                    android:gravity="end|center_vertical"
+                    android:text="dateFormat"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btnStartTime"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/btnStartTime"
+                    style="?android:borderlessButtonStyle"
+                    android:layout_width="72dp"
+                    android:layout_height="match_parent"
+                    android:gravity="end|center_vertical"
+                    android:text="timeFormat"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="start"
+                    android:text="start_time"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="8dp" />
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+                <Button
+                    android:id="@+id/btnEndDate"
+                    style="?android:borderlessButtonStyle"
+                    android:layout_width="128dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="0dp"
+                    android:gravity="end|center_vertical"
+                    android:text="dateFormat"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btnEndTime"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/btnEndTime"
+                    style="?android:borderlessButtonStyle"
+                    android:layout_width="72dp"
+                    android:layout_height="match_parent"
+                    android:gravity="end|center_vertical"
+                    android:text="timeFormat"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="start"
+                    android:text="due"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="8dp" />
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+                <Button
+                    android:id="@+id/btnDeadlineDate"
+                    style="?android:borderlessButtonStyle"
+                    android:layout_width="128dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="0dp"
+                    android:gravity="end|center_vertical"
+                    android:text="dateFormat"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btnDeadlineTime"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/btnDeadlineTime"
+                    style="?android:borderlessButtonStyle"
+                    android:layout_width="72dp"
+                    android:layout_height="match_parent"
+                    android:gravity="end|center_vertical"
+                    android:text="timeFormat"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="start"
+                    android:text="deadline"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="24dp" />
+
+            <EditText
+                android:id="@+id/days"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="days_recorded"
+                android:inputType="numberDecimal"
+                tools:ignore="Autofill" />
+
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="24dp" />
+
+            <EditText
+                android:id="@+id/maxReg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="max_reg"
+                android:inputType="number"
+                tools:ignore="Autofill" />
+
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="24dp" />
+
+            <Button
+                android:id="@+id/buttonPost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="post" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="32dp" />
+        </LinearLayout>
+
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

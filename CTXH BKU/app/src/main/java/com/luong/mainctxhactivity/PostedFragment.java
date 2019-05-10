@@ -19,8 +19,10 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -40,6 +42,8 @@ public class PostedFragment extends Fragment {
 
     FirebaseFirestore db;
 
+    private String id_faculty;
+
     public PostedFragment() {
     }
 
@@ -54,7 +58,6 @@ public class PostedFragment extends Fragment {
 
         ctxhList = new ArrayList<>();
 
-        //getDatabase();
         initDatabase();
 
         initView();
@@ -88,10 +91,6 @@ public class PostedFragment extends Fragment {
             }
         }
         switch (type) {
-            case "get":
-                ctxhList.add(item);
-                ctxhAdapter.notifyItemInserted(ctxhList.size() - 1);
-                break;
             case "delete":
                 if (idx >= 0) {
                     ctxhList.remove(idx);
@@ -118,7 +117,23 @@ public class PostedFragment extends Fragment {
 
     public void initDatabase() {
         db = FirebaseFirestore.getInstance();
+
+        db.collection("users").document(FirebaseAuth.getInstance().getUid())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()) {
+                            id_faculty = task.getResult().get("id_faculty").toString();
+                            getCtxhPosted();
+                        }
+                    }
+                });
+    }
+
+    private void getCtxhPosted() {
         db.collection("ctxh")
+                .whereEqualTo("id_faculty", id_faculty)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
@@ -126,8 +141,6 @@ public class PostedFragment extends Fragment {
                             Log.w("Update_data_fall", "Listen failed.", e);
                             return;
                         }
-
-                        Timestamp now = Timestamp.now();
 
                         for (DocumentChange document : queryDocumentSnapshots.getDocumentChanges()) {
                             String title = document.getDocument().getString("title");
@@ -142,17 +155,10 @@ public class PostedFragment extends Fragment {
 
                             switch (document.getType()) {
                                 case ADDED:
-                                    if (deadline.getSeconds() > now.getSeconds()) {
-                                        updateUI(item, "add");
-                                    }
+                                    updateUI(item, "add");
                                     break;
                                 case MODIFIED:
-                                    if (deadline.getSeconds() > now.getSeconds()) {
-                                        updateUI(item, "update");
-                                    }
-                                    else {
-                                        updateUI(item, "delete");
-                                    }
+                                    updateUI(item, "update");
                                     break;
                                 case REMOVED:
                                     updateUI(item, "delete");
@@ -163,6 +169,5 @@ public class PostedFragment extends Fragment {
                     }
                 });
     }
-
 
 }

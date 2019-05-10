@@ -1,7 +1,11 @@
 package com.luong.mainctxhactivity;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,7 +76,17 @@ public class CtxhAdapter extends RecyclerView.Adapter<CtxhAdapter.ViewHolder> {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    String docId = ctxhList.get(getAdapterPosition()).getId();
 
+                    Bundle bundle = new Bundle();
+                    bundle.putString("docId", docId);
+                    Fragment detailFragment = new DetailFragment();
+                    detailFragment.setArguments(bundle);
+
+                    AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, detailFragment).commit();
+
+                    Log.d("TestClick", "Clickable");
                 }
             });
         }

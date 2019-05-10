@@ -1,7 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#caf5">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    android:paddingRight="15dp"
+    android:paddingLeft="15dp"
+    android:gravity="center">
+    <android.support.v7.widget.CardView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:elevation="18dp"
+        android:id="@+id/view2"
+        app:cardCornerRadius="60dp"
+        android:layout_gravity="center">
+        <ImageView
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:id="@+id/imageView1"
+            android:scaleType="centerCrop"/>
+    </android.support.v7.widget.CardView>
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/name_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/colorBlack"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:gravity="center"
+        />
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="MSSV"
+            />
+        <TextView
+            android:id="@+id/MSSV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            />
+        <TextView
+            android:id="@+id/email_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="Khoa"
+            />
+        <TextView
+            android:id="@+id/faculty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="Số ngày ctxh"
+            />
+        <TextView
+            android:id="@+id/day_of_ctxh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            android:text="0"
+            android:textColor="@color/colorGreen"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/change_password"
+        android:layout_marginTop="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Đổi mật khẩu"
+        android:textColor="@color/colorBottomNav"
+        android:textStyle="italic"
+        />
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_marginTop="40dp"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:text="Đăng xuất"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/logout_btn"/>
+
+
+
+
+</LinearLayout>
