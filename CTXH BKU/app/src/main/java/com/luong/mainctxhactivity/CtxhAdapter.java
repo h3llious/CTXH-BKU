@@ -3,19 +3,15 @@ package com.luong.mainctxhactivity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.luong.mainctxhactivity.CtxhItem;
 import com.luong.mainctxhactivity.R;
 import com.squareup.picasso.Picasso;
@@ -41,7 +37,7 @@ public class CtxhAdapter extends RecyclerView.Adapter<CtxhAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int i) {
+    public void onBindViewHolder( ViewHolder viewHolder, int i) {
         CtxhItem item = ctxhList.get(i);
         // item.setImg(viewHolder.img);
         Picasso.get().load(item.getImgURL()).into(viewHolder.img);
@@ -51,7 +47,6 @@ public class CtxhAdapter extends RecyclerView.Adapter<CtxhAdapter.ViewHolder> {
         viewHolder.start.setText(item.getTime_start());
         viewHolder.end.setText(item.getTime_end());
         viewHolder.ctxh_day.setText(Double.toString(item.getDay_of_ctxh()));
-
     }
 
     @Override
@@ -68,7 +63,7 @@ public class CtxhAdapter extends RecyclerView.Adapter<CtxhAdapter.ViewHolder> {
         TextView ctxh_day;
 
 
-        public ViewHolder(final View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
 
             img = itemView.findViewById(R.id.image);
