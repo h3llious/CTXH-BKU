@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">ctxh_login_signin</string>
-    <string name="title_activity_login">Sign in</string>
+    <string name="app_name">ctxh bank</string>
+    <string name="title_activity_account">Sign in</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>

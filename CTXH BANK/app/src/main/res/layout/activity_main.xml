@@ -19,11 +19,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
+        android:layout_marginLeft="5dp"
         android:layout_below="@id/imageLogo"
         android:id="@+id/firstname"
         android:textSize="20sp"
-        android:textColor="#FFFF00"
-        android:text="Họ"
+        android:textColor="#FFFFFF"
+        android:text="Tên"
         android:enabled="true"
         />
     <EditText
@@ -45,9 +46,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/lastname"
         android:layout_below="@id/edit_fname"
-        android:layout_marginTop="20dp"
-        android:text="Tên"
-        android:textColor="#FFFF00"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:text="Họ"
+        android:textColor="#FFFFFF"
         android:textSize="20sp"
         />
     <EditText
@@ -68,9 +70,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/email"
         android:layout_below="@id/edit_lname"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
         android:text="Email"
-        android:textColor="#FFFF00"
+        android:textColor="#FFFFFF"
         android:textSize="20sp"
         />
     <EditText
@@ -91,46 +94,54 @@
         android:layout_height="wrap_content"
         android:id="@+id/pass_sn"
         android:layout_below="@id/edit_email"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
         android:text="Mật khẩu:"
-        android:textColor="#FFFF00"
+        android:textColor="#FFFFFF"
         android:textSize="20sp"
         />
+
     <EditText
+        android:id="@+id/edit_pass_sn"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:id="@+id/edit_pass_sn"
+        android:layout_below="@id/pass_sn"
         android:layout_centerHorizontal="true"
-        android:background="#FFFFFF"
-        android:textSize="16sp"
-        android:hint="Password"
-        android:ems="10"
         android:layout_marginTop="10dp"
+        android:background="#FFFFFF"
+        android:ems="10"
+        android:hint="Password"
         android:inputType="textPassword"
-        android:layout_below="@id/pass_sn"/>
+        android:password="true"
+        android:textSize="16sp"
+        android:visibility="visible"
+        tools:visibility="visible" />
     <!--xac nhan pass-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/check_pass"
         android:layout_below="@id/edit_pass_sn"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
         android:text="Xác nhận mật khẩu:"
-        android:textColor="#FFFF00"
+        android:textColor="#FFFFFF"
         android:textSize="20sp"
         />
+
     <EditText
+        android:id="@+id/edit_checkpass"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:id="@+id/edit_checkpass"
+        android:layout_below="@id/check_pass"
         android:layout_centerHorizontal="true"
-        android:background="#FFFFFF"
-        android:textSize="16sp"
-        android:hint="Password"
-        android:ems="10"
         android:layout_marginTop="10dp"
+        android:background="#FFFFFF"
+        android:ems="10"
+        android:hint="Password"
         android:inputType="textPassword"
-        android:layout_below="@id/check_pass"/>
+        android:password="true"
+        android:textSize="16sp" />
     <!--nut bam-->
     <Button
         android:id="@+id/login_sn"
@@ -138,11 +149,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        android:text="Đăng nhập"
+        android:text="Đăng kí"
         android:layout_below = "@+id/edit_checkpass"
         android:layout_toLeftOf="@id/signout"
+        android:layout_marginRight="20dp"
         android:background="#1E90FF"/>
-        />
+    />
     <!--nut thoat-->
     <Button
         android:id="@+id/signout"
@@ -153,7 +165,6 @@
         android:text="Thoát"
         android:layout_alignEnd="@id/edit_checkpass"
         android:layout_below = "@+id/edit_checkpass"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_toRightOf="@android:id/background"
         android:background="#1E90FF"/>
 </RelativeLayout>
-
