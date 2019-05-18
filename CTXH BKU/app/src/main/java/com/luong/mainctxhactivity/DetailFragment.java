@@ -55,7 +55,6 @@ public class DetailFragment extends Fragment {
     TextView location;
     TextView maxReg;
     TextView desc;
-    TextView curReg;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -78,17 +77,16 @@ public class DetailFragment extends Fragment {
         location = view.findViewById(R.id.location2);
         maxReg = view.findViewById(R.id.maxNum);
         desc = view.findViewById(R.id.description2);
-        curReg = view.findViewById(R.id.num2);
 
         db = FirebaseFirestore.getInstance();
 
 
-        CollectionReference cref = db.collection("registration");
-        Query q1 = cref.whereEqualTo("id_user", userID).whereEqualTo("id_ctxh", docID);
+
+        CollectionReference cref=db.collection("registration");
+        Query q1=cref.whereEqualTo("id_user",userID).whereEqualTo("id_ctxh",docID);
         q1.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-
                 for (DocumentSnapshot document : queryDocumentSnapshots) {
                     String uidCheck = document.getString("id_user");
                     String didCheck = document.getString("id_ctxh");
@@ -102,7 +100,26 @@ public class DetailFragment extends Fragment {
         });
 
 
-        updateCurrentReg(docID);
+
+//        db.collection("registration").addSnapshotListener(new EventListener<QuerySnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+//                if (e != null) {
+//                    Log.w("Update_data_fall", "Listen failed.", e);
+//                    return;
+//                }
+//
+//                for (DocumentChange document : queryDocumentSnapshots.getDocumentChanges()) {
+//                    String uidCheck = document.getDocument().getString("id_user");
+//                    String didCheck = document.getDocument().getString("id_ctxh");
+//                    if (uidCheck.equals(userID) && didCheck.equals(docID)) {
+//                        toggle.setChecked(true);
+//                        return;
+//                    }
+//                }
+//                toggle.setChecked(false);
+//            }
+//        });
 
         DocumentReference docRef = db.collection("ctxh").document(docID);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -155,7 +172,7 @@ public class DetailFragment extends Fragment {
             public void onClick(View v) {
                 if (toggle.isChecked()) {
                     Map<String, Object> data = new HashMap<>();
-                    data.put("ctxh_day_addto_user", Double.parseDouble(social_day.getText().toString()));
+                    data.put("ctxh_day_addto_user", social_day.getText());
                     data.put("id_ctxh", docID);
                     data.put("id_user", userID);
 
@@ -173,10 +190,10 @@ public class DetailFragment extends Fragment {
                                     Log.w("addData", "Error adding document", e);
                                 }
                             });
-                    updateCurrentReg(docID);
-                } else {
-                    CollectionReference cref = db.collection("registration");
-                    final Query q1 = cref.whereEqualTo("id_user", userID).whereEqualTo("id_ctxh", docID);
+                }
+                else {
+                    CollectionReference cref=db.collection("registration");
+                    Query q1=cref.whereEqualTo("id_user",userID).whereEqualTo("id_ctxh",docID);
                     q1.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                         @Override
                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -198,11 +215,7 @@ public class DetailFragment extends Fragment {
                                                     Log.w("deleteDoc", "Error deleting document", e);
                                                 }
                                             });
-
-                                    //change curReg
-                                    updateCurrentReg(docID);
                                 }
-
                                 return;
                             }
 
@@ -212,32 +225,138 @@ public class DetailFragment extends Fragment {
 
 
 
+//                    db.collection("registration").addSnapshotListener(new EventListener<QuerySnapshot>() {
+//                        @Override
+//                        public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+//                            if (e != null) {
+//                                Log.w("Update_data_fall", "Listen failed.", e);
+//                                return;
+//                            }
+//
+//                            for (DocumentChange document : queryDocumentSnapshots.getDocumentChanges()) {
+//                                String uidCheck = document.getDocument().getString("id_user");
+//                                String didCheck = document.getDocument().getString("id_ctxh");
+//                                if (uidCheck.equals(userID) && didCheck.equals(docID)) {
+//                                    db.collection("registration").document(document.getDocument().getId())
+//                                            .delete()
+//                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                                @Override
+//                                                public void onSuccess(Void aVoid) {
+//                                                    Log.d("deleteDoc", "DocumentSnapshot successfully deleted!");
+//                                                }
+//                                            })
+//                                            .addOnFailureListener(new OnFailureListener() {
+//                                                @Override
+//                                                public void onFailure(@NonNull Exception e) {
+//                                                    Log.w("deleteDoc", "Error deleting document", e);
+//                                                }
+//                                            });
+//                                }
+//                                return;
+//                            }
+//                        }
+//                    });
                 }
             }
         });
+
+//        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked) {
+//                    Map<String, Object> data = new HashMap<>();
+//                    data.put("ctxh_day_addto_user", social_day.getText());
+//                    data.put("id_ctxh", docID);
+//                    data.put("id_user", userID);
+//
+//                    db.collection("registration")
+//                            .add(data)
+//                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                                @Override
+//                                public void onSuccess(DocumentReference documentReference) {
+//                                    Log.d("addData", "DocumentSnapshot written with ID: " + documentReference.getId());
+//                                }
+//                            })
+//                            .addOnFailureListener(new OnFailureListener() {
+//                                @Override
+//                                public void onFailure(@NonNull Exception e) {
+//                                    Log.w("addData", "Error adding document", e);
+//                                }
+//                            });
+//                }
+//                else {
+//                    db.collection("registration").addSnapshotListener(new EventListener<QuerySnapshot>() {
+//                        @Override
+//                        public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+//                            if (e != null) {
+//                                Log.w("Update_data_fall", "Listen failed.", e);
+//                                return;
+//                            }
+//
+//                            for (DocumentChange document : queryDocumentSnapshots.getDocumentChanges()) {
+//                                String uidCheck = document.getDocument().getString("id_user");
+//                                String didCheck = document.getDocument().getString("id_ctxh");
+//                                if (uidCheck.equals(userID) && didCheck.equals(docID)) {
+//                                    db.collection("registration").document(document.getDocument().getId())
+//                                            .delete()
+//                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                                @Override
+//                                                public void onSuccess(Void aVoid) {
+//                                                    Log.d("deleteDoc", "DocumentSnapshot successfully deleted!");
+//                                                }
+//                                            })
+//                                            .addOnFailureListener(new OnFailureListener() {
+//                                                @Override
+//                                                public void onFailure(@NonNull Exception e) {
+//                                                    Log.w("deleteDoc", "Error deleting document", e);
+//                                                }
+//                                            });
+//                                }
+//                            }
+//                        }
+//                    });
+//                }
+//            }
+//        });
 
 
         return view;
     }
 
-    public void updateCurrentReg(final String docID) {
-        CollectionReference cref = db.collection("registration");
-        Query q1 = cref.whereEqualTo("id_ctxh", docID);
-        q1.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                int num = 0;
-                for (DocumentSnapshot document : queryDocumentSnapshots) {
-                    String didCheck = document.getString("id_ctxh");
-                    if (didCheck.equals(docID)) {
-                        num++;
-                    }
-                }
-                curReg.setText(String.valueOf(num));
-                Log.d("why not show", "curReg" + curReg.getText());
-            }
-        });
-    }
+//    public void checkRegistered(FirebaseFirestore db, final String docID, final String userID, ToggleButton toggle){
+//        CollectionReference cref=db.collection("registration");
+//        Query q1=cref.whereEqualTo("id_user",userID).whereEqualTo("id_ctxh",docID);
+//        q1.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//            @Override
+//            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//
+//            }
+//        })
+//
+//        db.collection("registration").addSnapshotListener(new EventListener<QuerySnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+//                if (e != null) {
+//                    Log.w("Update_data_fall", "Listen failed.", e);
+//                    return;
+//                }
+//
+//                for (DocumentChange document: queryDocumentSnapshots.getDocumentChanges()){
+//                    String uidCheck = document.getDocument().getString("id_user");
+//                    String didCheck = document.getDocument().getString("id_ctxh");
+//                    if (uidCheck.equals(userID) && didCheck.equals(docID)){
+//                        updateToggle(toggle, false);
+//                    }
+//                }
+//                toggle.setChecked(false);
+//            }
+//        });
+//
+//    }
+//
+//    public void updateToggle(ToggleButton toggle, boolean isChecked){
+//
+//    }
 
 
 }

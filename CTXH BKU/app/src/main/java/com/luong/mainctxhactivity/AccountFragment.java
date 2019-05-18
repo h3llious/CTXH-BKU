@@ -2,6 +2,7 @@ package com.luong.mainctxhactivity;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -133,6 +134,7 @@ public class AccountFragment extends Fragment {
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
                                     Log.d("TAG", "Email sent.");
+                                    startActivity(new Intent(context, SignInActivity.class));
                                 }
                             }
                         });
@@ -157,6 +159,7 @@ public class AccountFragment extends Fragment {
                 mAuth.signOut();
                 Toast.makeText(context, "Log out successful", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
+                startActivity(new Intent(context, SignInActivity.class));
             }
         });
 

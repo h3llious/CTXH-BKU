@@ -27,13 +27,13 @@
                 android:layout_marginStart="5dp"
                 android:ems="10"
                 android:gravity="start"
-                android:text="title" />
+                android:text="@string/title" />
 
             <EditText
                 android:id="@+id/editTextName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="activity_name"
+                android:hint="@string/activity_name"
                 android:inputType="textMultiLine"
                 tools:ignore="Autofill" />
 
@@ -47,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="128dp"
                 android:gravity="top"
-                android:hint="activity_description"
+                android:hint="@string/activity_description"
                 android:inputType="textMultiLine"
                 tools:ignore="Autofill" />
 
@@ -60,7 +60,7 @@
                 android:id="@+id/editTextLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="location"
+                android:hint="@string/location"
                 android:inputType="textMultiLine"
                 tools:ignore="Autofill" />
 
@@ -75,7 +75,7 @@
                 android:layout_marginStart="5dp"
                 android:ems="10"
                 android:gravity="start"
-                android:text="faculty" />
+                android:text="@string/faculty" />
 
             <Spinner
                 android:id="@+id/spinnerFaculty"
@@ -98,7 +98,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="choose_photo"
+                    android:text="@string/choose_photo"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -117,7 +117,7 @@
                     android:id="@+id/buttonChoose"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:text="choose"
+                    android:text="@string/choose"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -139,7 +139,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="0dp"
                     android:gravity="end|center_vertical"
-                    android:text="dateFormat"
+                    android:text="@string/dateFormat"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/btnStartTime"
@@ -151,7 +151,7 @@
                     android:layout_width="72dp"
                     android:layout_height="match_parent"
                     android:gravity="end|center_vertical"
-                    android:text="timeFormat"
+                    android:text="@string/timeFormat"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -165,7 +165,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:gravity="start"
-                    android:text="start_time"
+                    android:text="@string/start_time"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -187,7 +187,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="0dp"
                     android:gravity="end|center_vertical"
-                    android:text="dateFormat"
+                    android:text="@string/dateFormat"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/btnEndTime"
@@ -199,7 +199,7 @@
                     android:layout_width="72dp"
                     android:layout_height="match_parent"
                     android:gravity="end|center_vertical"
-                    android:text="timeFormat"
+                    android:text="@string/timeFormat"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -212,7 +212,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:gravity="start"
-                    android:text="due"
+                    android:text="@string/due"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -234,7 +234,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="0dp"
                     android:gravity="end|center_vertical"
-                    android:text="dateFormat"
+                    android:text="@string/dateFormat"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/btnDeadlineTime"
@@ -246,7 +246,7 @@
                     android:layout_width="72dp"
                     android:layout_height="match_parent"
                     android:gravity="end|center_vertical"
-                    android:text="timeFormat"
+                    android:text="@string/timeFormat"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -259,7 +259,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:gravity="start"
-                    android:text="deadline"
+                    android:text="@string/deadline"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -274,7 +274,7 @@
                 android:id="@+id/days"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="days_recorded"
+                android:hint="@string/days_recorded"
                 android:inputType="numberDecimal"
                 tools:ignore="Autofill" />
 
@@ -287,7 +287,7 @@
                 android:id="@+id/maxReg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="max_reg"
+                android:hint="@string/max_reg"
                 android:inputType="number"
                 tools:ignore="Autofill" />
 
@@ -300,7 +300,7 @@
                 android:id="@+id/buttonPost"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="post" />
+                android:text="@string/post" />
 
             <Space
                 android:layout_width="match_parent"

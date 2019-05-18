@@ -1,5 +1,6 @@
 package com.luong.mainctxhactivity;
 
+import android.content.Intent;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -25,6 +26,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser user;
+    private int login = 0;
 
     FirebaseFirestore db;
 
@@ -45,8 +47,15 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-        signIn("1611949@hcmut.edu.vn", "1611949");
-
+        user = mAuth.getCurrentUser();
+        //signIn("1611949@hcmut.edu.vn", "1611949");
+        if(user == null) {
+            requireLogin();
+        }
+        else {
+            updateUI(user);
+        }
+        Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -56,6 +65,35 @@ public class MainActivity extends AppCompatActivity {
 //        FirebaseUser currentUser = mAuth.getCurrentUser();
 //        updateUI(currentUser);
         Toast.makeText(this, "onStart", Toast.LENGTH_SHORT).show();
+
+        if (login == 1) {
+            updateUI(mAuth.getCurrentUser());
+            login += 1;
+        }
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        Toast.makeText(this, "onResume", Toast.LENGTH_SHORT).show();
+        if (login == 1) {
+            updateUI(mAuth.getCurrentUser());
+            login += 1;
+        }
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        moveTaskToBack(false);
+    }
+
+    private void requireLogin() {
+        user = mAuth.getCurrentUser();
+        login += 1;
+        if(user == null) {
+            startActivity(new Intent(this, SignInActivity.class));
+        }
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navUserListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -75,8 +113,6 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.notify:
                     selectedFragment = new NotificationFragment();
                     ((NotificationFragment) selectedFragment).setContext(MainActivity.this);
-                    ((NotificationFragment) selectedFragment).setUser(user);
-                    ((NotificationFragment) selectedFragment).showId();
                     break;
                 case R.id.account:
                     selectedFragment = new AccountFragment();
@@ -105,8 +141,6 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.notify:
                     selectedFragment = new NotificationFragment();
                     ((NotificationFragment) selectedFragment).setContext(MainActivity.this);
-                    ((NotificationFragment) selectedFragment).setUser(user);
-                    ((NotificationFragment) selectedFragment).showId();
                     break;
                 case R.id.account:
                     selectedFragment = new AccountFragment();
