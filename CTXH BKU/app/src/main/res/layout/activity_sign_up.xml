@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/imageLogo"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        app:srcCompat="@drawable/logo" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageLogo"
+        android:paddingLeft="20dp"
+        android:layout_centerHorizontal="true"
+        android:paddingRight="20dp"
+        android:visibility="gone" />
+
+    <!--Ten-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="5dp"
+        android:layout_below="@id/imageLogo"
+        android:id="@+id/firstname"
+        android:textSize="15sp"
+        android:textColor="@color/colorBottomNav"
+        android:text="Tên"
+        android:enabled="true"
+        />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:id="@+id/edit_fname"
+        android:layout_marginTop="0dp"
+        android:hint="First name"
+        android:layout_below="@id/firstname"
+        android:textSize="16sp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:background="@drawable/background_ctxh_item"
+        android:paddingLeft="10dp"
+        />
+    <!--Ho-->
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:id="@+id/edit_lname"
+        android:background="@drawable/background_ctxh_item"
+        android:textSize="16sp"
+        android:hint="Last name"
+        android:ems="10"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="10dp"
+        android:inputType="textPersonName"
+        android:layout_toRightOf="@id/edit_fname"
+        android:layout_below="@id/firstname"
+        android:paddingLeft="10dp"/>
+    <!--Khoa-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/major"
+        android:layout_below="@id/edit_fname"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:text="Khoa (viết rõ tên khoa. VD: Khoa Khoa học và Kỹ thuật Máy tính)"
+        android:textColor="@color/colorBottomNav"
+        android:textSize="15sp"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/edit_major"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/background_ctxh_item"
+        android:textSize="16sp"
+        android:hint="Major"
+        android:ems="10"
+        android:layout_marginTop="0dp"
+        android:inputType="textPersonName"
+        android:layout_below="@id/major"
+        android:paddingLeft="10dp"/>
+    <!--MSSV-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/MSSV"
+        android:layout_below="@id/edit_major"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:text="MSSV"
+        android:textColor="@color/colorBottomNav"
+        android:textSize="15sp"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/edit_MSSV"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/background_ctxh_item"
+        android:textSize="16sp"
+        android:hint="Student ID"
+        android:ems="10"
+        android:layout_marginTop="0dp"
+        android:inputType="textPersonName"
+        android:layout_below="@id/MSSV"
+        android:paddingLeft="10dp"/>
+    <!--Email-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/email"
+        android:layout_below="@id/edit_MSSV"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:text="Email"
+        android:textColor="@color/colorBottomNav"
+        android:textSize="15sp"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/edit_email"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/background_ctxh_item"
+        android:textSize="16sp"
+        android:hint="Email login"
+        android:ems="10"
+        android:layout_marginTop="0dp"
+        android:inputType="textPersonName"
+        android:layout_below="@id/email"
+        android:paddingLeft="10dp"/>
+    <!--password-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pass_sn"
+        android:layout_below="@id/edit_email"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:text="Mật khẩu (ít nhất 6 kí tự)"
+        android:textColor="@color/colorBottomNav"
+        android:textSize="15sp"
+        />
+
+    <EditText
+        android:id="@+id/edit_pass_sn"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/pass_sn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/background_ctxh_item"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:password="true"
+        android:textSize="16sp"
+        android:visibility="visible"
+        tools:visibility="visible"
+        android:paddingLeft="10dp"/>
+    <!--xac nhan pass-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/check_pass"
+        android:layout_below="@id/edit_pass_sn"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:text="Xác nhận mật khẩu"
+        android:textColor="@color/colorBottomNav"
+        android:textSize="15sp"
+        />
+
+    <EditText
+        android:id="@+id/edit_checkpass"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/check_pass"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/background_ctxh_item"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:password="true"
+        android:textSize="16sp"
+        android:paddingLeft="10dp"/>
+    <!--nut bam-->
+    <Button
+        android:id="@+id/login_sn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Đăng kí"
+        android:layout_below = "@+id/edit_checkpass"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/background_sign_in_btn"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorWhite"/>
+    />
+</RelativeLayout>
