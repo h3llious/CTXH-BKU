@@ -105,7 +105,7 @@
 
                 <TextView
                     android:id="@+id/imgName"
-                    android:layout_width="160dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="end"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -118,6 +118,7 @@
                     android:id="@+id/buttonChoose"
                     android:layout_width="96dp"
                     android:layout_height="wrap_content"
+                    android:gravity="end|center_vertical"
                     android:text="@string/choose"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
