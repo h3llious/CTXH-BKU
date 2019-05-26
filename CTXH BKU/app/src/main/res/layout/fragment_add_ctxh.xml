@@ -114,8 +114,9 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
+                    style="?android:borderlessButtonStyle"
                     android:id="@+id/buttonChoose"
-                    android:layout_width="80dp"
+                    android:layout_width="96dp"
                     android:layout_height="wrap_content"
                     android:text="@string/choose"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -132,30 +133,40 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp">
 
-                <Button
-                    android:id="@+id/btnStartDate"
-                    style="?android:borderlessButtonStyle"
-                    android:layout_width="128dp"
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="0dp"
-                    android:gravity="end|center_vertical"
-                    android:text="@string/dateFormat"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/btnStartTime"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <Button
-                    android:id="@+id/btnStartTime"
-                    style="?android:borderlessButtonStyle"
-                    android:layout_width="72dp"
-                    android:layout_height="match_parent"
-                    android:gravity="end|center_vertical"
-                    android:text="@string/timeFormat"
-                    android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:background="@drawable/rectangle_bounding">
+
+                    <Button
+                        android:id="@+id/btnStartDate"
+                        style="?android:borderlessButtonStyle"
+                        android:layout_width="128dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="0dp"
+                        android:gravity="end|center_vertical"
+                        android:text="@string/dateFormat"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/btnStartTime"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Button
+                        android:id="@+id/btnStartTime"
+                        style="?android:borderlessButtonStyle"
+                        android:layout_width="72dp"
+                        android:layout_height="match_parent"
+                        android:gravity="end|center_vertical"
+                        android:text="@string/timeFormat"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </android.support.constraint.ConstraintLayout>
 
                 <TextView
                     android:id="@+id/textView2"
@@ -180,30 +191,40 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp">
 
-                <Button
-                    android:id="@+id/btnEndDate"
-                    style="?android:borderlessButtonStyle"
-                    android:layout_width="128dp"
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="0dp"
-                    android:gravity="end|center_vertical"
-                    android:text="@string/dateFormat"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/btnEndTime"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <Button
-                    android:id="@+id/btnEndTime"
-                    style="?android:borderlessButtonStyle"
-                    android:layout_width="72dp"
-                    android:layout_height="match_parent"
-                    android:gravity="end|center_vertical"
-                    android:text="@string/timeFormat"
-                    android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:background="@drawable/rectangle_bounding">
+
+                    <Button
+                        android:id="@+id/btnEndDate"
+                        style="?android:borderlessButtonStyle"
+                        android:layout_width="128dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="0dp"
+                        android:gravity="end|center_vertical"
+                        android:text="@string/dateFormat"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/btnEndTime"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Button
+                        android:id="@+id/btnEndTime"
+                        style="?android:borderlessButtonStyle"
+                        android:layout_width="72dp"
+                        android:layout_height="match_parent"
+                        android:gravity="end|center_vertical"
+                        android:text="@string/timeFormat"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </android.support.constraint.ConstraintLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -227,30 +248,40 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp">
 
-                <Button
-                    android:id="@+id/btnDeadlineDate"
-                    style="?android:borderlessButtonStyle"
-                    android:layout_width="128dp"
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="0dp"
-                    android:gravity="end|center_vertical"
-                    android:text="@string/dateFormat"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/btnDeadlineTime"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <Button
-                    android:id="@+id/btnDeadlineTime"
-                    style="?android:borderlessButtonStyle"
-                    android:layout_width="72dp"
-                    android:layout_height="match_parent"
-                    android:gravity="end|center_vertical"
-                    android:text="@string/timeFormat"
-                    android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:background="@drawable/rectangle_bounding">
+
+                    <Button
+                        android:id="@+id/btnDeadlineDate"
+                        style="?android:borderlessButtonStyle"
+                        android:layout_width="128dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="0dp"
+                        android:gravity="end|center_vertical"
+                        android:text="@string/dateFormat"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/btnDeadlineTime"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Button
+                        android:id="@+id/btnDeadlineTime"
+                        style="?android:borderlessButtonStyle"
+                        android:layout_width="72dp"
+                        android:layout_height="match_parent"
+                        android:gravity="end|center_vertical"
+                        android:text="@string/timeFormat"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </android.support.constraint.ConstraintLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -300,6 +331,7 @@
                 android:id="@+id/buttonPost"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/important_button"
                 android:text="@string/post" />
 
             <Space

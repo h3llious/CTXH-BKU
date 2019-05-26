@@ -3,11 +3,14 @@ package com.luong.mainctxhactivity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -20,21 +23,21 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.annotation.Nullable;
+import java.util.TimeZone;
 
 public class DetailFragment extends Fragment {
     CtxhItem item;
@@ -56,6 +59,11 @@ public class DetailFragment extends Fragment {
     TextView maxReg;
     TextView desc;
     TextView curReg;
+
+    RecyclerView commentListView;
+    ArrayList<CmtItem> commentListItems;
+    EditText editComment;
+    Button buttonComment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -79,6 +87,14 @@ public class DetailFragment extends Fragment {
         maxReg = view.findViewById(R.id.maxNum);
         desc = view.findViewById(R.id.description2);
         curReg = view.findViewById(R.id.num2);
+
+        commentListItems = new ArrayList<>();
+        commentListView = view.findViewById(R.id.commentListRecyclerView);
+        commentListView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        editComment = view.findViewById(R.id.edit_comment);
+        buttonComment = view.findViewById(R.id.button_comment);
+
 
         db = FirebaseFirestore.getInstance();
 
@@ -104,7 +120,7 @@ public class DetailFragment extends Fragment {
 
         updateCurrentReg(docID);
 
-        DocumentReference docRef = db.collection("ctxh").document(docID);
+        final DocumentReference docRef = db.collection("ctxh").document(docID);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -120,7 +136,6 @@ public class DetailFragment extends Fragment {
                                 DocumentSnapshot docFaculty = task.getResult();
                                 if (docFaculty.exists()) {
                                     faculty.setText(docFaculty.get("name").toString());
-                                    ;
                                 }
                             }
                         }
@@ -149,6 +164,8 @@ public class DetailFragment extends Fragment {
                 }
             }
         });
+
+        updateCmtList(docRef);
 
         toggle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -210,12 +227,34 @@ public class DetailFragment extends Fragment {
                     });
 
 
-
-
                 }
             }
         });
 
+        buttonComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                if (currentUser == null) {
+                    return;
+                }
+                String id_user = currentUser.getUid();
+                String comment = editComment.getText().toString();
+                Timestamp time = getCurrentTimestamp();
+                HashMap<String, Object> item = new HashMap<>();
+                item.put("id_user", id_user);
+                item.put("comment", comment);
+                item.put("time", time);
+                docRef.collection("comments").add(item)
+                        .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentReference> task) {
+                                editComment.setText("");
+                                updateCmtList(docRef);
+                            }
+                        });
+            }
+        });
 
         return view;
     }
@@ -239,5 +278,64 @@ public class DetailFragment extends Fragment {
         });
     }
 
+    // Get comment from comments collection and full name from users collection
+    private void updateCmtList(DocumentReference documentReference) {
+        commentListItems.clear();
+        documentReference.collection("comments")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful() && task.getResult() != null) {
+                            for (QueryDocumentSnapshot cmt : task.getResult()) {
+                                String idUser = (String) cmt.get("id_user");
+
+                                final String[] commentName = new String[1];
+                                final Timestamp commentTime = (Timestamp) cmt.get("time");
+                                final String commentContent = (String) cmt.get("comment");
+
+                                if (idUser != null) {
+                                    db.collection("users")
+                                            .document(idUser)
+                                            .get()
+                                            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                    if (task.isSuccessful() && task.getResult() != null) {
+                                                        commentName[0] = task.getResult().get("firstname")
+                                                                + " "
+                                                                + task.getResult().get("lastname");
+                                                        commentListItems.add(new CmtItem(commentName[0], commentTime, commentContent));
+                                                        updateCmtAdapter();
+                                                    } else {
+                                                        Log.d("Comment", "failed getting full user name ", task.getException());
+                                                    }
+                                                }
+                                            });
+                                }
+                            }
+                        } else {
+                            Log.d("Comment", "failed getting comment reference ", task.getException());
+                        }
+                    }
+
+                });
+    }
+
+    private void updateCmtAdapter() {
+        commentListItems.sort(new Comparator<CmtItem>() {
+            @Override
+            public int compare(CmtItem o1, CmtItem o2) {
+                return o1.getTimestamp().compareTo(o2.getTimestamp());
+            }
+        });
+
+        CmtAdapter cmtAdapter = new CmtAdapter(commentListItems);
+        commentListView.setAdapter(cmtAdapter);
+    }
+
+    private Timestamp getCurrentTimestamp() {
+        return new Timestamp(Calendar.getInstance(TimeZone.getDefault()).getTime());
+    }
 
 }
