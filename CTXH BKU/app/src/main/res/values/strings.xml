@@ -10,7 +10,22 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+    <string name="permission_rationale">Contacts permissions are needed for providing email</string>
+    <string name="activity_name">Activity Name</string>
+    <string name="activity_description">Activity Description…</string>
+    <string name="start_time">Start time</string>
+    <string name="deadline">Registration deadline</string>
+    <string name="days_recorded">Days to be recorded</string>
+    <string name="due">Due</string>
+    <string name="dateFormat">DD/MM/YYYY</string>
+    <string name="timeFormat">HH:MM</string>
+    <string name="location">Location</string>
+    <string name="image">Image</string>
+    <string name="post">Post</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="max_reg">Maximum registration allowed</string>
+    <string name="faculty">Faculty</string>
+    <string name="choose_photo">Choose photo</string>
+    <string name="choose">Choose…</string>
 </resources>

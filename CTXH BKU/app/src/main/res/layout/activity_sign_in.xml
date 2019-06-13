@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/imageLogo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        app:srcCompat="@drawable/logo"
+        android:scaleType="fitCenter"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/imageLogo"
+        android:id="@+id/name"
+        android:textSize="20sp"
+        android:textColor="@color/colorBottomNav"
+        android:text="Email đăng nhập"
+        android:enabled="true"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/edit_mail"
+        android:layout_marginTop="10dp"
+        android:hint="User name"
+        android:layout_below="@id/name"
+        android:layout_centerHorizontal="true"
+        android:textSize="16sp"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:background="@drawable/background_ctxh_item"
+        android:paddingLeft="10dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pass"
+        android:layout_below="@id/edit_mail"
+        android:layout_marginTop="30dp"
+        android:text="Mật khẩu"
+        android:textColor="@color/colorBottomNav"
+        android:textSize="20sp"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/edit_pass"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/background_ctxh_item"
+        android:textSize="16sp"
+        android:hint="Password"
+        android:ems="10"
+        android:layout_marginTop="10dp"
+        android:inputType="textPassword"
+        android:layout_below="@id/pass"
+        android:paddingLeft="10dp"/>
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="Đăng nhập"
+        android:layout_below = "@+id/edit_pass"
+        android:background="@drawable/background_sign_in_btn"
+        android:textColor="@color/colorWhite"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_centerHorizontal="true"/>
+    />
+
+    <TextView
+        android:id="@+id/signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="30dp"
+        android:text="Đăng kí"
+        android:layout_below = "@+id/login"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorGreen"
+        android:textStyle="italic"/>
+
+    <TextView
+        android:id="@+id/forgetpass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="30dp"
+        android:text="Quên mật khẩu"
+        android:layout_below = "@+id/signup"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorRed"
+        android:textStyle="italic"/>
+
+
+</RelativeLayout>

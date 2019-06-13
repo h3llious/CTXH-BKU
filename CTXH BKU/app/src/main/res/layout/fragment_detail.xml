@@ -5,256 +5,327 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="fitXY"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/listRegistered"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:src="@drawable/icon"
+        android:clickable="true"
+        app:backgroundTint="#00ccff"/>
 
-    <TextView
-        android:id="@+id/title_detail"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="Chiến dịch mùa hè xanh do đoàn khoa Khoa học - Kĩ thuật máy tính tổ chức"
-        android:textColor="@color/colorBlueDark"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        app:layout_constrainedWidth="true"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        android:layout_height="match_parent">
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/row1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        app:layout_constrainedWidth="true"
-        app:layout_constraintTop_toBottomOf="@+id/title_detail">
-
-        <TextView
-            android:id="@+id/row1_col1"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:paddingBottom="7dp"
-            android:text="Mở đăng kí đến"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/deadline_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="11h55pm, 12/12/2018"
-            android:textColor="@color/colorBlack"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toRightOf="@+id/row1_col1"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/row2_col1"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:paddingBottom="7dp"
-            android:text="Thời gian đi"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/row1_col1" />
-
-        <TextView
-            android:id="@+id/time_start_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="9h am , 12/12/2018"
-            android:textColor="@color/colorBlack"
-            android:textStyle="bold"
-
-            app:layout_constraintLeft_toRightOf="@id/row2_col1"
-            app:layout_constraintTop_toBottomOf="@+id/row1_col1" />
-
-        <TextView
-            android:id="@+id/time_end_detail"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="120dp"
-            android:paddingBottom="7dp"
-            android:text="9h am , 12/12/2018"
-            android:textColor="@color/colorBlack"
-            android:textStyle="bold"
+            android:layout_height="match_parent">
 
-            app:layout_constraintLeft_toRightOf="@id/row2_col1"
-            app:layout_constraintTop_toBottomOf="@+id/time_start_detail" />
-
-        <TextView
-            android:id="@+id/row3_col1"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:paddingBottom="7dp"
-            android:text="Số ngày ctxh"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/time_end_detail" />
-
-        <TextView
-            android:id="@+id/social_day"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="7dp"
-            android:text="2 "
-            android:textColor="@color/colorGreen"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toRightOf="@+id/row3_col1"
-            app:layout_constraintTop_toBottomOf="@+id/time_end_detail" />
-
-        <TextView
-            android:id="@+id/facultyname"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:paddingBottom="7dp"
-            android:text="Khoa tổ chức"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/row3_col1" />
-
-        <TextView
-            android:id="@+id/faculty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="7dp"
-            android:text="Khoa Khoa hoc &amp; Kỹ thuật Máy tính"
-            android:textColor="@color/colorBlack"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toRightOf="@+id/facultyname"
-            app:layout_constraintTop_toBottomOf="@+id/social_day" />
-
-        <TextView
-            android:id="@+id/location"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:paddingBottom="7dp"
-            android:text="Địa điểm"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/facultyname" />
-
-        <TextView
-            android:id="@+id/location2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:paddingBottom="7dp"
-            android:text="Dĩ An Bình Dương"
-            android:textColor="@color/colorBlack"
-            android:textStyle="bold"
-            app:layout_constrainedWidth="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toRightOf="@+id/location"
-            app:layout_constraintStart_toEndOf="@+id/location"
-            app:layout_constraintTop_toBottomOf="@+id/faculty" />
-
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:paddingBottom="15dp"
-            android:text="Mô tả"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/location2" />
-
-        <ScrollView
-            android:id="@+id/scrollDisc"
-            android:layout_width="wrap_content"
-            android:layout_height="120dp"
-            app:layout_constraintHeight_min="wrap"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="15dp"
-            android:paddingBottom="7dp"
-            app:layout_constrainedWidth="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/description"
-            app:layout_constraintRight_toLeftOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/description"
-            app:layout_constraintTop_toBottomOf="@+id/location2">
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
             <TextView
-                android:id="@+id/description2"
-                android:layout_width="wrap_content"
+                android:id="@+id/title_detail"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:paddingBottom="7dp"
-                android:text="Các bạn sau khi tham gia hoạt động nhớ chú ý CHỈ ĐIỂM DANH VÀO SỔ CỦA ĐỘI XUNG KÍCH KHOA ĐIỆN và KHÔNG ĐIỂM DANH VÀO BẤT KÌ QUYỂN SỔ NÀO KHÁC. Bất kì trường hợp nào điểm danh vào sổ khác chúng mình sẽ KHÔNG GIẢI QUYẾT."
+                android:padding="10dp"
+                android:text=""
+                android:textColor="@color/colorBlueDark"
+                android:textSize="18dp"
+                android:textStyle="bold"
                 app:layout_constrainedWidth="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/description"
-                app:layout_constraintRight_toLeftOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/description"
-                app:layout_constraintTop_toBottomOf="@+id/location" />
-        </ScrollView>
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-        <TextView
-            android:id="@+id/num"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:text="Số lượng đăng ký"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scrollDisc"
-            />
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/row1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintTop_toBottomOf="@+id/title_detail">
 
-        <TextView
-            android:id="@+id/num2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="x"
-            android:textColor="@color/colorBlack"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toRightOf="@+id/num"
-            app:layout_constraintTop_toBottomOf="@+id/scrollDisc" />
-        <TextView
-            android:id="@+id/slash"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="/"
-            android:textColor="@color/colorBlack"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toRightOf="@+id/num2"
-            app:layout_constraintTop_toBottomOf="@+id/scrollDisc" />
+                <TextView
+                    android:id="@+id/row1_col1"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="7dp"
+                    android:text="Mở đăng kí đến"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/maxNum"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="y"
-            android:textColor="@color/colorBlack"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toRightOf="@+id/slash"
-            app:layout_constraintTop_toBottomOf="@+id/scrollDisc" />
+                <TextView
+                    android:id="@+id/deadline_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toRightOf="@+id/row1_col1"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <ToggleButton
-            android:id="@+id/registerButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="Đăng ký"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/maxNum"
-            app:layout_constraintTop_toBottomOf="@+id/scrollDisc"
-            android:textOn="Hủy đăng ký"
-            android:textOff="Đăng ký"/>
+                <TextView
+                    android:id="@+id/row2_col1"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="7dp"
+                    android:text="Thời gian đi"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/row1_col1" />
 
-        <TextView
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:autoSizeTextType="uniform"
-            android:text="Comment Section"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/registerButton" />
-    </android.support.constraint.ConstraintLayout>
+                <TextView
+                    android:id="@+id/time_start_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold"
+
+                    app:layout_constraintLeft_toRightOf="@id/row2_col1"
+                    app:layout_constraintTop_toBottomOf="@+id/row1_col1" />
+
+                <TextView
+                    android:id="@+id/time_end_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="120dp"
+                    android:paddingBottom="7dp"
+                    android:text=""
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold"
+
+                    app:layout_constraintLeft_toRightOf="@id/row2_col1"
+                    app:layout_constraintTop_toBottomOf="@+id/time_start_detail" />
+
+                <TextView
+                    android:id="@+id/row3_col1"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="7dp"
+                    android:text="Số ngày ctxh"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/time_end_detail" />
+
+                <TextView
+                    android:id="@+id/social_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="7dp"
+                    android:text=" "
+                    android:textColor="@color/colorGreen"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toRightOf="@+id/row3_col1"
+                    app:layout_constraintTop_toBottomOf="@+id/time_end_detail" />
+
+                <TextView
+                    android:id="@+id/facultyname"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="7dp"
+                    android:text="Khoa tổ chức"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/row3_col1" />
+
+                <TextView
+                    android:id="@+id/faculty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="7dp"
+                    android:text=""
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toRightOf="@+id/facultyname"
+                    app:layout_constraintTop_toBottomOf="@+id/social_day" />
+
+                <TextView
+                    android:id="@+id/location"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="7dp"
+                    android:text="Địa điểm"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/facultyname" />
+
+                <TextView
+                    android:id="@+id/location2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:paddingBottom="7dp"
+                    android:text=""
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold"
+                    app:layout_constrainedWidth="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintLeft_toRightOf="@+id/location"
+                    app:layout_constraintStart_toEndOf="@+id/location"
+                    app:layout_constraintTop_toBottomOf="@+id/faculty" />
+
+                <TextView
+                    android:id="@+id/description"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="15dp"
+                    android:text="Mô tả"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/location2" />
+
+                <android.support.v4.widget.NestedScrollView
+                    android:id="@+id/scrollDisc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:paddingBottom="7dp"
+                    app:layout_constrainedWidth="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_min="wrap"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintLeft_toRightOf="@+id/description"
+                    app:layout_constraintRight_toLeftOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/description"
+                    app:layout_constraintTop_toBottomOf="@+id/location2">
+
+                    <TextView
+                        android:id="@+id/description2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="8dp"
+                        android:paddingBottom="7dp"
+                        android:text="hello"
+                        app:layout_constrainedWidth="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintLeft_toRightOf="@+id/description"
+                        app:layout_constraintRight_toLeftOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/description"
+                        app:layout_constraintTop_toBottomOf="@+id/location" />
+                </android.support.v4.widget.NestedScrollView>
+
+                <TextView
+                    android:id="@+id/num"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="Số lượng đăng ký"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/scrollDisc"
+                    android:layout_marginTop="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/num2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toRightOf="@+id/num"
+                    app:layout_constraintTop_toBottomOf="@+id/scrollDisc"
+                    android:layout_marginTop="10dp" />
+                <TextView
+                    android:id="@+id/slash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="/"
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toRightOf="@+id/num2"
+                    app:layout_constraintTop_toBottomOf="@+id/scrollDisc"
+                    android:layout_marginTop="10dp" />
+
+                <TextView
+                    android:id="@+id/maxNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toRightOf="@+id/slash"
+                    app:layout_constraintTop_toBottomOf="@+id/scrollDisc"
+                    android:layout_marginTop="10dp" />
+
+
+                <ToggleButton
+                    android:id="@+id/registerButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="Đăng ký"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/maxNum"
+                    app:layout_constraintTop_toBottomOf="@+id/scrollDisc"
+                    android:textOn="Hủy đăng ký"
+                    android:textOff="Đăng ký"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/registerButton"
+                    app:layout_constraintBottom_toBottomOf="parent">
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="24dp" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/commentListRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <Button
+                            android:id="@+id/button_comment"
+                            android:text="Comment"
+                            android:background="@drawable/generic_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent" />
+
+                        <EditText
+                            android:id="@+id/edit_comment"
+                            android:hint="Bình luận..."
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:inputType="textMultiLine"
+                            tools:ignore="Autofill"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toLeftOf="@id/button_comment" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="24dp" />
+
+                </LinearLayout>
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
 </android.support.constraint.ConstraintLayout>

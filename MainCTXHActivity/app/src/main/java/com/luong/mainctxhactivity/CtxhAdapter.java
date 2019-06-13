@@ -43,6 +43,8 @@ public class CtxhAdapter extends RecyclerView.Adapter<CtxhAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         CtxhItem item = ctxhList.get(i);
+
+        final String docId = item.getId();
         // item.setImg(viewHolder.img);
         Picasso.get().load(item.getImgURL()).into(viewHolder.img);
 
@@ -52,6 +54,20 @@ public class CtxhAdapter extends RecyclerView.Adapter<CtxhAdapter.ViewHolder> {
         viewHolder.end.setText(item.getTime_end());
         viewHolder.ctxh_day.setText(Double.toString(item.getDay_of_ctxh()));
 
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("docId", docId);
+                Fragment detailFragment = new DetailFragment();
+                detailFragment.setArguments(bundle);
+
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, detailFragment).commit();
+
+                Log.d("TestClick", "Clickable");
+            }
+        });
     }
 
     @Override
@@ -78,22 +94,12 @@ public class CtxhAdapter extends RecyclerView.Adapter<CtxhAdapter.ViewHolder> {
             end = itemView.findViewById(R.id.thoi_gian_ketthuc_thuchien);
             ctxh_day = itemView.findViewById(R.id.day_of_ctxh);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String docId = ctxhList.get(getAdapterPosition()).getId();
-
-                    Bundle bundle = new Bundle();
-                    bundle.putString("docId", docId);
-                    Fragment detailFragment = new DetailFragment();
-                    detailFragment.setArguments(bundle);
-
-                    AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, detailFragment).commit();
-
-                    Log.d("TestClick", "Clickable");
-                }
-            });
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Toast.makeText(itemView.getContext(), "TEST", Toast.LENGTH_SHORT).show();
+//                }
+//            });
         }
     }
 }
