@@ -37,7 +37,7 @@
         android:layout_centerHorizontal="true"
         android:textSize="16sp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         android:background="@drawable/background_ctxh_item"
         android:paddingLeft="10dp"
         />
