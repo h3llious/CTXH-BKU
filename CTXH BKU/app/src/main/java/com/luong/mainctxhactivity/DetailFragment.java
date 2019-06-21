@@ -1,10 +1,7 @@
 package com.luong.mainctxhactivity;
 
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -51,7 +47,6 @@ public class DetailFragment extends Fragment {
     View view;
 
     ToggleButton toggle;
-    FloatingActionButton listRegistered;
 
     ImageView img;
     TextView deadline;
@@ -92,9 +87,6 @@ public class DetailFragment extends Fragment {
         maxReg = view.findViewById(R.id.maxNum);
         desc = view.findViewById(R.id.description2);
         curReg = view.findViewById(R.id.num2);
-        listRegistered = view.findViewById(R.id.listRegistered);
-
-        listRegistered.hide();
 
         commentListItems = new ArrayList<>();
         commentListView = view.findViewById(R.id.commentListRecyclerView);
@@ -124,32 +116,6 @@ public class DetailFragment extends Fragment {
                 toggle.setChecked(false);
             }
         });
-
-        DocumentReference userRef = db.collection("users").document(userID);
-        userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    Boolean admin = (Boolean) document.get("admin");
-                    if (admin) {
-                        toggle.setVisibility(View.GONE);
-                        listRegistered.show();
-                    }
-                }
-            }
-        });
-
-        //if (listRegistered.isShown()){
-            listRegistered.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), StudentsRegisteredActivity.class);
-                    intent.putExtra("docId", docID);
-                    startActivity(intent);
-                }
-            });
-        //}
 
 
         updateCurrentReg(docID);
@@ -204,24 +170,11 @@ public class DetailFragment extends Fragment {
         toggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int curRegNum = Integer.parseInt(curReg.getText().toString());
-                int maxRegNum = Integer.parseInt(maxReg.getText().toString());
-
                 if (toggle.isChecked()) {
                     Map<String, Object> data = new HashMap<>();
                     data.put("ctxh_day_addto_user", Double.parseDouble(social_day.getText().toString()));
                     data.put("id_ctxh", docID);
                     data.put("id_user", userID);
-
-
-
-                    if (curRegNum == maxRegNum) {
-                        Toast.makeText(getContext(), "Hoạt động đã đủ người", Toast.LENGTH_SHORT).show();
-                        toggle.setChecked(false);
-                        return;
-                    }
-
-                    curReg.setText(String.valueOf(curRegNum+1));
 
                     db.collection("registration")
                             .add(data)
@@ -239,10 +192,6 @@ public class DetailFragment extends Fragment {
                             });
                     updateCurrentReg(docID);
                 } else {
-
-                    //just a dummy number
-                    curReg.setText(String.valueOf(curRegNum-1));
-
                     CollectionReference cref = db.collection("registration");
                     final Query q1 = cref.whereEqualTo("id_user", userID).whereEqualTo("id_ctxh", docID);
                     q1.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -372,9 +321,6 @@ public class DetailFragment extends Fragment {
 
                 });
     }
-
-
-    // private class SocialWorkInfoTask extends AsyncTask<String, Void, DocumentSnapshot>
 
     private void updateCmtAdapter() {
         commentListItems.sort(new Comparator<CmtItem>() {

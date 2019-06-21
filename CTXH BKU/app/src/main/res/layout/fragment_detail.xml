@@ -5,20 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/listRegistered"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:src="@drawable/icon"
-        android:clickable="true"
-        app:backgroundTint="#00ccff"/>
-
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -42,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text=""
+                android:text="Chiến dịch mùa hè xanh do đoàn khoa Khoa học - Kĩ thuật máy tính tổ chức"
                 android:textColor="@color/colorBlueDark"
                 android:textSize="18dp"
                 android:textStyle="bold"
@@ -71,7 +57,7 @@
                     android:id="@+id/deadline_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="11h55pm, 12/12/2018"
                     android:textColor="@color/colorBlack"
                     android:textStyle="bold"
                     app:layout_constraintLeft_toRightOf="@+id/row1_col1"
@@ -90,7 +76,7 @@
                     android:id="@+id/time_start_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="9h am , 12/12/2018"
                     android:textColor="@color/colorBlack"
                     android:textStyle="bold"
 
@@ -103,7 +89,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="120dp"
                     android:paddingBottom="7dp"
-                    android:text=""
+                    android:text="9h am , 12/12/2018"
                     android:textColor="@color/colorBlack"
                     android:textStyle="bold"
 
@@ -124,7 +110,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="7dp"
-                    android:text=" "
+                    android:text="2 "
                     android:textColor="@color/colorGreen"
                     android:textStyle="bold"
                     app:layout_constraintLeft_toRightOf="@+id/row3_col1"
@@ -144,7 +130,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="7dp"
-                    android:text=""
+                    android:text="Khoa Khoa hoc &amp; Kỹ thuật Máy tính"
                     android:textColor="@color/colorBlack"
                     android:textStyle="bold"
                     app:layout_constraintLeft_toRightOf="@+id/facultyname"
@@ -165,7 +151,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:paddingBottom="7dp"
-                    android:text=""
+                    android:text="Dĩ An Bình Dương"
                     android:textColor="@color/colorBlack"
                     android:textStyle="bold"
                     app:layout_constrainedWidth="true"
@@ -187,13 +173,13 @@
                 <android.support.v4.widget.NestedScrollView
                     android:id="@+id/scrollDisc"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="120dp"
+                    app:layout_constraintHeight_min="wrap"
                     android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="15dp"
                     android:paddingBottom="7dp"
                     app:layout_constrainedWidth="true"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHeight_min="wrap"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintLeft_toRightOf="@+id/description"
                     app:layout_constraintRight_toLeftOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/description"
@@ -201,11 +187,11 @@
 
                     <TextView
                         android:id="@+id/description2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:paddingBottom="7dp"
-                        android:text="hello"
+                        android:text="Các bạn sau khi tham gia hoạt động nhớ chú ý CHỈ ĐIỂM DANH VÀO SỔ CỦA ĐỘI XUNG KÍCH KHOA ĐIỆN và KHÔNG ĐIỂM DANH VÀO BẤT KÌ QUYỂN SỔ NÀO KHÁC. Bất kì trường hợp nào điểm danh vào sổ khác chúng mình sẽ KHÔNG GIẢI QUYẾT."
                         app:layout_constrainedWidth="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintLeft_toRightOf="@+id/description"
@@ -221,19 +207,17 @@
                     android:text="Số lượng đăng ký"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/scrollDisc"
-                    android:layout_marginTop="10dp"
                     />
 
                 <TextView
                     android:id="@+id/num2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="x"
                     android:textColor="@color/colorBlack"
                     android:textStyle="bold"
                     app:layout_constraintLeft_toRightOf="@+id/num"
-                    app:layout_constraintTop_toBottomOf="@+id/scrollDisc"
-                    android:layout_marginTop="10dp" />
+                    app:layout_constraintTop_toBottomOf="@+id/scrollDisc" />
                 <TextView
                     android:id="@+id/slash"
                     android:layout_width="wrap_content"
@@ -242,20 +226,17 @@
                     android:textColor="@color/colorBlack"
                     android:textStyle="bold"
                     app:layout_constraintLeft_toRightOf="@+id/num2"
-                    app:layout_constraintTop_toBottomOf="@+id/scrollDisc"
-                    android:layout_marginTop="10dp" />
+                    app:layout_constraintTop_toBottomOf="@+id/scrollDisc" />
 
                 <TextView
                     android:id="@+id/maxNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="y"
                     android:textColor="@color/colorBlack"
                     android:textStyle="bold"
                     app:layout_constraintLeft_toRightOf="@+id/slash"
-                    app:layout_constraintTop_toBottomOf="@+id/scrollDisc"
-                    android:layout_marginTop="10dp" />
-
+                    app:layout_constraintTop_toBottomOf="@+id/scrollDisc" />
 
                 <ToggleButton
                     android:id="@+id/registerButton"
