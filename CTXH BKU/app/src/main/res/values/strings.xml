@@ -27,5 +27,5 @@
     <string name="max_reg">Maximum registration allowed</string>
     <string name="faculty">Faculty</string>
     <string name="choose_photo">Choose photo</string>
-    <string name="choose">Choose</string>
+    <string name="choose">Choose…</string>
 </resources>

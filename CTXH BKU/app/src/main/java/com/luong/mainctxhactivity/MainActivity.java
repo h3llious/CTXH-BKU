@@ -1,5 +1,9 @@
 package com.luong.mainctxhactivity;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Intent;
+import android.os.Build;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -21,10 +25,20 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MainActivity extends AppCompatActivity {
+
+
+    static final String CHANNEL_ID = "ctxh bku";
+    private static final String CHANNEL_NAME = "CTXH BKU";
+    private static final String CHANNEL_DESC = "CTXH BKU Notification";
+
     private FirebaseAuth mAuth;
     private FirebaseUser user;
+    private int login = 0;
 
     FirebaseFirestore db;
 
@@ -45,9 +59,51 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-        signIn("1611949@hcmut.edu.vn", "1611949");
+        user = mAuth.getCurrentUser();
 
+        // notification initial
+
+        //signIn("1611949@hcmut.edu.vn", "1611949");
+        if(user == null) {
+            requireLogin();
+        }
+        else {
+            updateUI(user);
+        }
+        //Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
     }
+
+    private void notificationInitial() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel nchannel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
+            nchannel.setDescription(CHANNEL_DESC);
+
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(nchannel);
+        }
+
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.i("TAG", "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+                        MyFirebaseMessagingService myFirebaseMessagingService = new MyFirebaseMessagingService();
+                        myFirebaseMessagingService.newToken(token);
+                        // Log and toast
+                       // Toast.makeText(MainActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+        FirebaseMessaging.getInstance().setAutoInitEnabled(true);
+    }
+
+
 
     @Override
     protected void onStart() {
@@ -55,7 +111,36 @@ public class MainActivity extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
 //        FirebaseUser currentUser = mAuth.getCurrentUser();
 //        updateUI(currentUser);
-        Toast.makeText(this, "onStart", Toast.LENGTH_SHORT).show();
+        //.makeText(this, "onStart", Toast.LENGTH_SHORT).show();
+
+        if (login == 1) {
+            updateUI(mAuth.getCurrentUser());
+            login += 1;
+        }
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        //Toast.makeText(this, "onResume", Toast.LENGTH_SHORT).show();
+        if (login == 1) {
+            updateUI(mAuth.getCurrentUser());
+            login += 1;
+        }
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        moveTaskToBack(false);
+    }
+
+    private void requireLogin() {
+        user = mAuth.getCurrentUser();
+        login += 1;
+        if(user == null) {
+            startActivity(new Intent(this, SignInActivity.class));
+        }
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navUserListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -75,8 +160,6 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.notify:
                     selectedFragment = new NotificationFragment();
                     ((NotificationFragment) selectedFragment).setContext(MainActivity.this);
-                    ((NotificationFragment) selectedFragment).setUser(user);
-                    ((NotificationFragment) selectedFragment).showId();
                     break;
                 case R.id.account:
                     selectedFragment = new AccountFragment();
@@ -101,12 +184,11 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.add_ctxh:
                     selectedFragment = new AddFragment();
+                    ((AddFragment) selectedFragment).setContext(MainActivity.this);
                     break;
                 case R.id.notify:
                     selectedFragment = new NotificationFragment();
                     ((NotificationFragment) selectedFragment).setContext(MainActivity.this);
-                    ((NotificationFragment) selectedFragment).setUser(user);
-                    ((NotificationFragment) selectedFragment).showId();
                     break;
                 case R.id.account:
                     selectedFragment = new AccountFragment();
@@ -120,39 +202,41 @@ public class MainActivity extends AppCompatActivity {
     };
 
 
-    public void signIn(String email, String password) {
-        FirebaseUser user = mAuth.getCurrentUser();
-        if (user == null) {
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.i("TAG", "signInWithEmail:success");
-                                Toast.makeText(MainActivity.this, "Authentication passed.", Toast.LENGTH_SHORT).show();
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                updateUI(user);
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.i("TAG", "signInWithEmail:failure", task.getException());
-                                Toast.makeText(MainActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
-                                updateUI(null);
-                            }
-
-                            // ...
-                        }
-                    });
-        }
-        else {
-            updateUI(user);
-        }
-    }
+//    public void signIn(String email, String password) {
+//        FirebaseUser user = mAuth.getCurrentUser();
+//        if (user == null) {
+//            mAuth.signInWithEmailAndPassword(email, password)
+//                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<AuthResult> task) {
+//                            if (task.isSuccessful()) {
+//                                // Sign in success, update UI with the signed-in user's information
+//                                Log.i("TAG", "signInWithEmail:success");
+//                                Toast.makeText(MainActivity.this, "Authentication passed.", Toast.LENGTH_SHORT).show();
+//                                FirebaseUser user = mAuth.getCurrentUser();
+//                                updateUI(user);
+//                            } else {
+//                                // If sign in fails, display a message to the user.
+//                                Log.i("TAG", "signInWithEmail:failure", task.getException());
+//                                Toast.makeText(MainActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+//                                updateUI(null);
+//                            }
+//
+//                            // ...
+//                        }
+//                    });
+//        }
+//        else {
+//            updateUI(user);
+//        }
+//    }
 
     public void updateUI(FirebaseUser user) {
         this.user = user;
 
         if(user != null) {
+            notificationInitial();
+
             DocumentReference docRef = db.collection("users").document(user.getUid());
             docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override

@@ -97,6 +97,7 @@ public class HomeFragment extends Fragment {
                     ctxhList.remove(idx);
                     ctxhAdapter.notifyItemRemoved(idx);
                 }
+                updateIfNotCTXH(ctxhList.size());
                 break;
             case "update":
                 if (idx >= 0) {
@@ -105,11 +106,13 @@ public class HomeFragment extends Fragment {
                 } else {
                     ctxhList.add(item);
                     ctxhAdapter.notifyItemInserted(ctxhList.size() - 1);
+                    updateIfNotCTXH(ctxhList.size());
                 }
                 break;
             case "add":
                 ctxhList.add(item);
                 ctxhAdapter.notifyItemInserted(ctxhList.size() - 1);
+                updateIfNotCTXH(ctxhList.size());
                 break;
 
         }
@@ -164,38 +167,24 @@ public class HomeFragment extends Fragment {
                 });
     }
 
+    ImageView img;
+    TextView textView;
 
-//    public void getDatabase() {
-//        db = FirebaseFirestore.getInstance();
-//        ctxhList = new ArrayList<>();
-//        db.collection("ctxh")
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            Timestamp now = Timestamp.now();
-//                            for (QueryDocumentSnapshot document : task.getResult()) {
-//                                String title = document.getString("title");
-//                                Timestamp deadline = document.getTimestamp("deadline_register");
-//                                Log.i("deadline", deadline.toString());
-//                                String img = document.getString("image");
-//                                Double ctxh_day = document.getDouble("maximum_ctxh_day");
-//                                Timestamp time_start = document.getTimestamp("time_start");
-//                                Timestamp time_end = document.getTimestamp("time_end");
-//
-//                                Log.i("timestamp", Long.toString(now.getSeconds()) + " " + Long.toString(deadline.getSeconds()));
-//
-//                                if (deadline.getSeconds() > now.getSeconds()) {
-//                                    updateUI(new CtxhItem(document.getId(), img, title, deadline, time_start, time_end, ctxh_day), "get");
-//                                }
-//
-//                            }
-//
-//                        } else {
-//                            Toast.makeText(context, "Cant get data", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
-//    }
+    private void updateIfNotCTXH(int numCTXH) {
+        img = view.findViewById(R.id.not_found_img);
+
+        textView = view.findViewById(R.id.not_found_text);
+        if (numCTXH > 0) {
+
+            img.setVisibility(View.INVISIBLE);
+
+            textView.setVisibility(View.INVISIBLE);
+        }
+        else {
+            img.setVisibility(View.VISIBLE);
+
+            textView.setVisibility(View.VISIBLE);
+        }
+    }
+
 }

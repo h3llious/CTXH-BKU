@@ -101,6 +101,7 @@ public class RegisteredFragment extends Fragment {
                     ctxhReList.remove(idx);
                     ctxhAdapter.notifyItemRemoved(idx);
                 }
+                updateIfNotCTXH(ctxhReList.size());
                 break;
             case "update":
                 if (idx >= 0) {
@@ -185,10 +186,32 @@ public class RegisteredFragment extends Fragment {
             case "add":
                 ctxhReList.add(item);
                 ctxhAdapter.notifyItemInserted(ctxhReList.size() - 1);
+                updateIfNotCTXH(ctxhReList.size());
                 break;
             case "update":
                 ctxhReList.get(idx).update(item);
                 ctxhAdapter.notifyItemChanged(idx);
+        }
+    }
+
+
+    ImageView img;
+    TextView textView;
+
+    private void updateIfNotCTXH(int numCTXH) {
+        img = view.findViewById(R.id.not_found_img);
+
+        textView = view.findViewById(R.id.not_found_text);
+        if (numCTXH > 0) {
+
+            img.setVisibility(View.INVISIBLE);
+
+            textView.setVisibility(View.INVISIBLE);
+        }
+        else {
+            img.setVisibility(View.VISIBLE);
+
+            textView.setVisibility(View.VISIBLE);
         }
     }
 }

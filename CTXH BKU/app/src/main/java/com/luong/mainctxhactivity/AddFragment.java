@@ -3,6 +3,7 @@ package com.luong.mainctxhactivity;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -33,6 +34,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -47,6 +51,13 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.TimeZone;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.support.constraint.Constraints.TAG;
 
@@ -86,6 +97,12 @@ public class AddFragment extends Fragment {
     HashMap<String, String> mapFaculty;
     double days;
     int maxReg;
+
+    Context context;
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -446,6 +463,8 @@ public class AddFragment extends Fragment {
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
                         Toast.makeText(getContext(), "Success!", Toast.LENGTH_LONG).show();
+
+                        sendingNotificationToAllUser();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -463,6 +482,56 @@ public class AddFragment extends Fragment {
             return new Timestamp(format.parse(in + ":00"));
         } catch (ParseException e) {
             return null;
+        }
+    }
+
+    private void sendingNotificationToAllUser() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("users")
+                //.whereEqualTo("admin", false)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                sendToToken(document.get("token").toString());
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+
+    }
+
+    private void sendToToken(String token) {
+        if(token != "") {
+            Retrofit retrofit =  new Retrofit.Builder()
+                    .baseUrl("https://cthx-manager.firebaseio.com/api/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            Api api = retrofit.create(Api.class);
+
+            Call<ResponseBody> call = api.sendNotification(token, "CTXH BKU", "Hoạt động mới: " + inputName.getText().toString());
+
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        Toast.makeText(context, response.body().toString(), Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Toast.makeText(context, "Fail to send", Toast.LENGTH_LONG).show();
+
+                }
+            });
         }
     }
 

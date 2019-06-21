@@ -95,7 +95,9 @@ public class PostedFragment extends Fragment {
                 if (idx >= 0) {
                     ctxhList.remove(idx);
                     ctxhAdapter.notifyItemRemoved(idx);
+                    updateIfNotCTXH(ctxhList.size());
                 }
+
                 break;
             case "update":
                 if (idx >= 0) {
@@ -104,11 +106,13 @@ public class PostedFragment extends Fragment {
                 } else {
                     ctxhList.add(item);
                     ctxhAdapter.notifyItemInserted(ctxhList.size() - 1);
+                    updateIfNotCTXH(ctxhList.size());
                 }
                 break;
             case "add":
                 ctxhList.add(item);
                 ctxhAdapter.notifyItemInserted(ctxhList.size() - 1);
+                updateIfNotCTXH(ctxhList.size());
                 break;
 
         }
@@ -168,6 +172,27 @@ public class PostedFragment extends Fragment {
                         }
                     }
                 });
+    }
+
+
+    ImageView img;
+    TextView textView;
+
+    private void updateIfNotCTXH(int numCTXH) {
+        img = view.findViewById(R.id.not_found_img);
+
+        textView = view.findViewById(R.id.not_found_text);
+        if (numCTXH > 0) {
+
+            img.setVisibility(View.INVISIBLE);
+
+            textView.setVisibility(View.INVISIBLE);
+        }
+        else {
+            img.setVisibility(View.VISIBLE);
+
+            textView.setVisibility(View.VISIBLE);
+        }
     }
 
 }
